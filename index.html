@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prater Apps LLC — Accessible apps from Michigan</title>
+<meta name="description" content="Prater Apps LLC is a Michigan software company building accessibility, communication and everyday-safety apps for iPhone, iPad and Apple Watch.">
+<style>
+  :root{
+    --ink:#14161a; --muted:#5b6170; --line:#e4e6eb; --bg:#fbfaf7; --card:#ffffff;
+    --accent:#1f5eff; --accent-ink:#ffffff; --warm:#ff7a1a;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#f2f3f5; --muted:#a3a9b6; --line:#2a2e36; --bg:#0f1115; --card:#171a20; --accent:#6f95ff; --accent-ink:#0f1115; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px}
+  a{color:var(--accent)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  header{border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{font-weight:800;letter-spacing:-.02em;font-size:20px;text-decoration:none;color:var(--ink)}
+  .brand span{color:var(--warm)}
+  nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+  nav ul a{color:var(--muted);text-decoration:none;font-size:15px}
+  nav ul a:hover,nav ul a:focus{color:var(--ink)}
+  .hero{padding:88px 0 64px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--muted);font-weight:600}
+  h1{font-size:clamp(36px,6vw,60px);line-height:1.05;letter-spacing:-.035em;margin:14px 0 20px;max-width:15ch}
+  .lede{font-size:20px;color:var(--muted);max-width:56ch;margin:0 0 32px}
+  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:13px 22px;border-radius:999px;
+       text-decoration:none;font-weight:600}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:8px}
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  h2{font-size:30px;letter-spacing:-.02em;margin:0 0 8px}
+  .sub{color:var(--muted);margin:0 0 28px;max-width:60ch}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+  .app{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px}
+  .app h3{margin:0 0 4px;font-size:17px}
+  .app p{margin:0;color:var(--muted);font-size:15px;line-height:1.45}
+  .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);
+       border-radius:999px;padding:2px 9px;margin-bottom:10px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  @media (max-width:720px){ .two{grid-template-columns:1fr} nav ul{gap:14px} .btn.ghost{margin:10px 0 0} }
+  dl{margin:0} dt{font-weight:600;margin-top:14px} dd{margin:2px 0 0;color:var(--muted)}
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  :focus-visible{outline:3px solid var(--warm);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="./">Prater Apps<span>.</span></a>
+      <ul>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="eyebrow">Prater Apps LLC · Eastpointe, Michigan</div>
+    <h1>Apps that help people be heard.</h1>
+    <p class="lede">We build accessibility, communication and everyday-safety apps for iPhone, iPad and Apple Watch, made with care for the communities that are usually designed for last.</p>
+    <a class="btn" href="https://apps.apple.com/us/developer/courtney-prater/id1673042208">See our apps on the App Store</a>
+    <a class="btn ghost" href="#contact">Get in touch</a>
+  </div>
+
+  <section id="apps">
+    <div class="wrap">
+      <h2>Our apps</h2>
+      <p class="sub">Fifteen apps live on the Apple App Store, from free communication tools to games.</p>
+      <div class="grid">
+        <div class="app"><span class="tag">Accessibility</span><h3>YAPersonal Platform</h3><p>A free tap-to-speak communication tool for nonverbal users.</p></div>
+        <div class="app"><span class="tag">Communication</span><h3>W.I.S.</h3><p>Who Is Speaking? Helps make sense of how a conversation is going.</p></div>
+        <div class="app"><span class="tag">Communication</span><h3>WHO IS TALKING2?</h3><p>A companion take on knowing who's speaking.</p></div>
+        <div class="app"><span class="tag">Accessibility</span><h3>Au'commadate</h3><p>Support for autistic kids and their families.</p></div>
+        <div class="app"><span class="tag">Safety</span><h3>CHECKYASHELF</h3><p>Food-safety tools for shoppers and residents.</p></div>
+        <div class="app"><span class="tag">Everyday</span><h3>CHECKFINEPRINT</h3><p>Reads the fine print in contracts so you don't miss what matters.</p></div>
+        <div class="app"><span class="tag">Social</span><h3>Wink One</h3><p>Share WINK cards person to person.</p></div>
+        <div class="app"><span class="tag">Social</span><h3>PASSEE</h3><p>Reaction cards powered by your face.</p></div>
+        <div class="app"><span class="tag">Communication</span><h3>Ahem.</h3><p>A small, polite way to get a word in.</p></div>
+        <div class="app"><span class="tag">Games</span><h3>PeWhipee</h3><p>Turns your own photos into games, right on your device.</p></div>
+        <div class="app"><span class="tag">Games</span><h3>HAWT POTATO</h3><p>A fast party game for passing the phone.</p></div>
+        <div class="app"><span class="tag">Games</span><h3>ROOZER</h3><p>Play with your face and motion.</p></div>
+        <div class="app"><span class="tag">Games</span><h3>ROOZER!</h3><p>More face- and motion-powered play.</p></div>
+        <div class="app"><span class="tag">Games</span><h3>Double Jumpx</h3><p>A quick-reflex jumping game.</p></div>
+        <div class="app"><span class="tag">Games</span><h3>GEE-14</h3><p>An arcade-style game for iPhone.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap two">
+      <div>
+        <h2>About</h2>
+        <p>Prater Apps LLC is a Michigan limited liability company founded by Courtney Prater, a Detroit-area iOS developer who spent 25 years in commercial construction before teaching herself to build apps.</p>
+        <p>Our focus is simple: tools that give people a voice, keep families safe, and are genuinely fun to use, built natively for Apple devices with accessibility from the first line of code.</p>
+      </div>
+      <div>
+        <h2>Company details</h2>
+        <dl>
+          <dt>Legal name</dt><dd>Prater Apps LLC</dd>
+          <dt>Formed</dt><dd>November 2026, State of Michigan</dd>
+          <dt>Location</dt><dd>Eastpointe, Michigan, USA</dd>
+          <dt>Founder</dt><dd>Courtney Prater</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p class="sub">Schools, organizations, partners and press: we'd love to hear from you.</p>
+      <p><a class="btn" href="mailto:courtneyprater77@gmail.com">courtneyprater77@gmail.com</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Prater Apps LLC. All rights reserved.</span>
+    <span><a href="privacy.html">Privacy Policy</a></span>
+  </div>
+</footer>
+</body>
+</html>
