@@ -63,7 +63,7 @@ a{color:inherit}
 .hero{text-align:center;padding-top:40px;padding-bottom:34px}
 .wordmark{position:relative;display:inline-block;margin:0;font-family:var(--display);font-weight:900;
   font-stretch:125%;font-variation-settings:"wdth" 125;letter-spacing:-.01em;line-height:.95;
-  font-size:clamp(54px,12.5vw,176px);text-transform:uppercase;white-space:nowrap}
+  font-size:clamp(34px,9.4vw,140px);text-transform:uppercase;white-space:nowrap}
 .wordmark .face,.wordmark .depth{display:block}
 .wordmark .depth{position:absolute;inset:0;color:#A6450B;
   text-shadow:0 1px 0 #B24D0C,0 2px 0 #A6450B,0 3px 0 #9A3F0A,0 4px 0 #8E3909,0 5px 0 #823308,
