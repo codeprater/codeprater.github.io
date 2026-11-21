@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PluggedIn — App Review demo video</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Public+Sans:ital,wght@0,400..700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  .demo{max-width:760px;margin:0 auto;padding:32px 20px 64px}
+  .clip{margin:28px 0}
+  .clip h2{margin:0 0 6px}
+  .clip p{margin:0 0 12px}
+  video{width:100%;max-width:360px;border-radius:24px;background:#111;display:block}
+  .pending{max-width:360px;aspect-ratio:9/19.5;border-radius:24px;border:2px dashed #999;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;box-sizing:border-box}
+</style>
+</head>
+<body>
+<main class="demo">
+  <h1>PluggedIn — demo for App Review</h1>
+  <p>One job from start to finish, in three parts. Parts 1 and 3 were recorded in the iPhone simulator. Part 2 is Apple Pay on a physical iPhone.</p>
+
+  <section class="clip">
+    <h2>Part 1 — Posting a job, up to Apple Pay</h2>
+    <p>Template, job photo, address, price and fee breakdown, the checklist, then the Buy with Apple Pay button.</p>
+    <video src="part1-before-apple-pay.mp4" controls playsinline preload="metadata"></video>
+  </section>
+
+  <section class="clip" id="apple-pay">
+    <h2>Part 2 — Paying with Apple Pay (physical iPhone)</h2>
+    <p>The Apple Pay sheet, confirming payment, and the payment held until the Plug approves the work.</p>
+    <div class="pending">Being added shortly.</div>
+  </section>
+
+  <section class="clip">
+    <h2>Part 3 — After payment: the job through to payout</h2>
+    <p>Payment held, the worker accepts and checks in, the Plug confirms it's them, proof is sent, the Plug approves and the payment is released, then the receipt and rating. This part uses the app's walkthrough mode with sample data.</p>
+    <video src="part2-after-apple-pay.mp4" controls playsinline preload="metadata"></video>
+  </section>
+</main>
+</body>
+</html>
