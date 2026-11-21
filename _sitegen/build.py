@@ -94,7 +94,7 @@ def head(title, desc, canonical, extra=""):
 <meta name="theme-color" content="#FBF3E6">
 <link rel="icon" href="/assets/favicon.png">
 {FONTS}
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=3">
 {extra}
 </head>
 """
@@ -137,7 +137,7 @@ FOOTER = """<footer class="gf">
       <a href="https://apps.apple.com/us/developer/courtney-prater/id1673042208">App Store</a></div>
   </div>
 </footer>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=3" defer></script>
 </body>
 </html>
 """
