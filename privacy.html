@@ -2,20 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy Policy — Prater Apps LLC</title>
-<style>
-  :root{--ink:#14161a;--muted:#5b6170;--line:#e4e6eb;--bg:#fbfaf7;--accent:#1f5eff}
-  @media (prefers-color-scheme: dark){:root{--ink:#f2f3f5;--muted:#a3a9b6;--line:#2a2e36;--bg:#0f1115;--accent:#6f95ff}}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:17px}
-  .wrap{max-width:720px;margin:0 auto;padding:40px 24px 64px}
-  a{color:var(--accent)} h1{letter-spacing:-.02em} h2{margin-top:32px;font-size:21px}
-  p,li{color:var(--muted)} .back{font-size:15px}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy Policy — Prater Apps</title>
+<meta name="description" content="How Prater Apps LLC handles information in its apps and on this website.">
+<link rel="canonical" href="https://praterapps.com/privacy.html">
+<meta property="og:title" content="Privacy Policy — Prater Apps">
+<meta property="og:description" content="How Prater Apps LLC handles information in its apps and on this website.">
+<meta name="theme-color" content="#FBF3E6">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,800..900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
 </head>
 <body>
-<div class="wrap">
-  <p class="back"><a href="./">← Prater Apps</a></p>
+<a class="sr" href="#main">Skip to content</a>
+<header class="gh" id="gh">
+  <div class="wrap bar">
+    <a class="logo" href="/" aria-label="Prater Apps home"><svg class="p" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE27A"/><stop offset=".55" stop-color="#F7A21B"/><stop offset="1" stop-color="#C8560A"/></linearGradient></defs><path d="M14 6h22c11 0 18 7 18 17s-7 17-18 17h-8v18H14z" fill="#9A3F0A" transform="translate(2 3)"/><path d="M14 6h22c11 0 18 7 18 17s-7 17-18 17h-8v18H14zM28 18v11h7c3.6 0 6-2.2 6-5.5S38.6 18 35 18z" fill="url(#lg)" fill-rule="evenodd"/></svg><span>Prater Apps</span></a>
+    <nav aria-label="Site">
+      <a class="nl" href="/apps/">Apps</a><a class="nl" href="/#about">About</a><a class="nl" href="/#support">Support</a>
+      <button class="icon-btn" id="searchBtn" aria-label="Search apps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.6-4.6"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </nav>
+  </div>
+</header>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search apps">
+  <div class="scrim" data-close></div>
+  <div class="panel">
+    <div class="field"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.6-4.6"/></svg>
+      <input id="q" type="search" placeholder="Search Prater Apps" autocomplete="off" aria-label="Search apps">
+      <button class="icon-btn" data-close aria-label="Close search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <h4 id="qlabel">Quick links</h4>
+    <ul class="results" id="results"></ul>
+  </div>
+</div>
+<main id="main" class="wrap" style="max-width:780px;padding-top:36px;padding-bottom:40px"><div class="panel">
+  
   <h1>Privacy Policy</h1>
   <p>Last updated: November 19, 2026</p>
 
@@ -39,6 +62,15 @@
   <h2>Contact</h2>
   <p>Prater Apps LLC, Eastpointe, Michigan, USA<br>
   <a href="mailto:courtney@praterapps.com">courtney@praterapps.com</a></p>
-</div>
+</div></main>
+<footer class="gf">
+  <div class="wrap cols">
+    <div>© 2026 Prater Apps LLC · Eastpointe, Michigan</div>
+    <div class="links"><a href="/apps/">All apps</a><a href="/pluggedin/">PluggedIn</a><a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:courtney@praterapps.com">courtney@praterapps.com</a>
+      <a href="https://apps.apple.com/us/developer/courtney-prater/id1673042208">App Store</a></div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>

@@ -212,3 +212,41 @@ details p { padding-bottom: 16px; color: var(--muted); }
   .ticket { transition: transform 0.4s ease; }
   .ticket:hover { transform: rotate(0deg); }
 }
+
+
+/* ---------- App wallpaper: the same dimmed work photos the PluggedIn app uses ---------- */
+body { background: transparent; }
+html { background: var(--paper); }
+html::before, html::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+html::before {
+  background: var(--photo, url("img/vest.jpg")) center / cover no-repeat;
+  opacity: 0.42; filter: blur(2px); transform: scale(1.06);
+}
+html::after {
+  background: linear-gradient(180deg, rgba(242,239,233,.60) 0%, rgba(255,255,255,.40) 50%, rgba(242,239,233,.62) 100%);
+}
+@media (prefers-color-scheme: dark) {
+  html::before { opacity: 0.34; }
+  html::after { background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.70) 100%); }
+}
+@media (prefers-reduced-transparency: reduce) { html::before { display: none; } }
+html:has(body[data-photo="vest"]) { --photo: url("img/vest.jpg"); }
+html:has(body[data-photo="tools"]) { --photo: url("img/tools.jpg"); }
+html:has(body[data-photo="moving"]) { --photo: url("img/moving.jpg"); }
+html:has(body[data-photo="lawn"]) { --photo: url("img/lawn.jpg"); }
+html:has(body[data-photo="painting"]) { --photo: url("img/painting.jpg"); }
+html:has(body[data-photo="cleaning"]) { --photo: url("img/cleaning.jpg"); }
+html:has(body[data-photo="deck"]) { --photo: url("img/deck.jpg"); }
+html:has(body[data-photo="hardhats"]) { --photo: url("img/hardhats.jpg"); }
+body::before { background: transparent; }
+.site-header { background: color-mix(in srgb, var(--paper) 72%, transparent); -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px); }
+/* Cards float on the photos like the app's cards */
+.panel, .contact-card, details, .card, .step, .faq details {
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: 0 14px 34px -22px rgba(0,0,0,.45);
+}
+.panel-ink { background: color-mix(in srgb, var(--contrast-bg) 92%, transparent); }
+.mark { background: none; padding: 0; overflow: hidden; }
+.mark img { width: 32px; height: 32px; border-radius: 9px; display: block; }
+.nav a.pa { opacity: .7; }

@@ -2,146 +2,165 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prater Apps LLC — Accessible apps from Michigan</title>
-<meta name="description" content="Prater Apps LLC is a Michigan software company building accessibility, communication and everyday-safety apps for iPhone, iPad and Apple Watch.">
-<style>
-  :root{
-    --ink:#14161a; --muted:#5b6170; --line:#e4e6eb; --bg:#fbfaf7; --card:#ffffff;
-    --accent:#1f5eff; --accent-ink:#ffffff; --warm:#ff7a1a;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{ --ink:#f2f3f5; --muted:#a3a9b6; --line:#2a2e36; --bg:#0f1115; --card:#171a20; --accent:#6f95ff; --accent-ink:#0f1115; }
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
-       color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px}
-  a{color:var(--accent)}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
-  header{border-bottom:1px solid var(--line)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .brand{font-weight:800;letter-spacing:-.02em;font-size:20px;text-decoration:none;color:var(--ink)}
-  .brand span{color:var(--warm)}
-  nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
-  nav ul a{color:var(--muted);text-decoration:none;font-size:15px}
-  nav ul a:hover,nav ul a:focus{color:var(--ink)}
-  .hero{padding-top:88px;padding-bottom:64px}
-  .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--muted);font-weight:600}
-  h1{font-size:clamp(36px,6vw,60px);line-height:1.05;letter-spacing:-.035em;margin:14px 0 20px;max-width:15ch}
-  .lede{font-size:20px;color:var(--muted);max-width:56ch;margin:0 0 32px}
-  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:13px 22px;border-radius:999px;
-       text-decoration:none;font-weight:600}
-  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:8px}
-  section{padding:56px 0;border-top:1px solid var(--line)}
-  h2{font-size:30px;letter-spacing:-.02em;margin:0 0 8px}
-  .sub{color:var(--muted);margin:0 0 28px;max-width:60ch}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-  .app{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px}
-  .app h3{margin:0 0 4px;font-size:17px}
-  .app p{margin:0;color:var(--muted);font-size:15px;line-height:1.45}
-  .feature{display:block;text-decoration:none;color:inherit;margin-bottom:14px;border-color:var(--accent)}
-  .feature h3{font-size:22px}
-  .feature .links{margin-top:10px;color:var(--accent);font-weight:600}
-  .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);
-       border-radius:999px;padding:2px 9px;margin-bottom:10px}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-  @media (max-width:720px){ .two{grid-template-columns:1fr} nav ul{gap:14px} .btn.ghost{margin:10px 0 0} }
-  dl{margin:0} dt{font-weight:600;margin-top:14px} dd{margin:2px 0 0;color:var(--muted)}
-  footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--muted);font-size:14px}
-  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-  :focus-visible{outline:3px solid var(--warm);outline-offset:3px;border-radius:6px}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prater Apps — Different apps for everyday life</title>
+<meta name="description" content="Independent iPhone apps by Courtney Prater: communication, accessibility, games and tools for everyday life.">
+<link rel="canonical" href="https://praterapps.com/">
+<meta property="og:title" content="Prater Apps — Different apps for everyday life">
+<meta property="og:description" content="Independent iPhone apps by Courtney Prater: communication, accessibility, games and tools for everyday life.">
+<meta name="theme-color" content="#FBF3E6">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,800..900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <nav aria-label="Main">
-      <a class="brand" href="./">Prater Apps<span>.</span></a>
-      <ul>
-        <li><a href="#apps">Apps</a></li>
-        <li><a href="pluggedin/">PluggedIn</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="privacy.html">Privacy</a></li>
-      </ul>
+<a class="sr" href="#main">Skip to content</a>
+<header class="gh" id="gh">
+  <div class="wrap bar">
+    <a class="logo" href="/" aria-label="Prater Apps home"><svg class="p" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE27A"/><stop offset=".55" stop-color="#F7A21B"/><stop offset="1" stop-color="#C8560A"/></linearGradient></defs><path d="M14 6h22c11 0 18 7 18 17s-7 17-18 17h-8v18H14z" fill="#9A3F0A" transform="translate(2 3)"/><path d="M14 6h22c11 0 18 7 18 17s-7 17-18 17h-8v18H14zM28 18v11h7c3.6 0 6-2.2 6-5.5S38.6 18 35 18z" fill="url(#lg)" fill-rule="evenodd"/></svg><span>Prater Apps</span></a>
+    <nav aria-label="Site">
+      <a class="nl" href="/apps/">Apps</a><a class="nl" href="/#about">About</a><a class="nl" href="/#support">Support</a>
+      <button class="icon-btn" id="searchBtn" aria-label="Search apps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.6-4.6"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </nav>
   </div>
 </header>
-
-<main>
-  <div class="wrap hero">
-    <div class="eyebrow">Prater Apps LLC · Eastpointe, Michigan</div>
-    <h1>Apps that help people be heard.</h1>
-    <p class="lede">We build accessibility, communication and everyday-safety apps for iPhone, iPad and Apple Watch, made with care for the communities that are usually designed for last.</p>
-    <a class="btn" href="https://apps.apple.com/us/developer/courtney-prater/id1673042208">See our apps on the App Store</a>
-    <a class="btn ghost" href="#contact">Get in touch</a>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search apps">
+  <div class="scrim" data-close></div>
+  <div class="panel">
+    <div class="field"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.6-4.6"/></svg>
+      <input id="q" type="search" placeholder="Search Prater Apps" autocomplete="off" aria-label="Search apps">
+      <button class="icon-btn" data-close aria-label="Close search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <h4 id="qlabel">Quick links</h4>
+    <ul class="results" id="results"></ul>
   </div>
-
-  <section id="apps">
-    <div class="wrap">
-      <h2>Our apps</h2>
-      <p class="sub">Fifteen apps live on the Apple App Store, from free communication tools to games, and PluggedIn, our local jobs marketplace.</p>
-      <a class="app feature" href="pluggedin/">
-        <span class="tag">New · Marketplace</span>
-        <h3>PluggedIn: Hire &amp; Earn</h3>
-        <p>Post a job with a video of the real work, watch the bids come in live, and pay in the app only after you approve the finished work. ID-verified PluggedIn workers, live arrival tracking and a public bid board for honest prices.</p>
-        <p class="links">Learn more →</p>
-      </a>
-      <div class="grid">
-        <div class="app"><span class="tag">Accessibility</span><h3>YAPersonal Platform</h3><p>A free tap-to-speak communication tool for nonverbal users.</p></div>
-        <div class="app"><span class="tag">Communication</span><h3>W.I.S.</h3><p>Who Is Speaking? Helps make sense of how a conversation is going.</p></div>
-        <div class="app"><span class="tag">Communication</span><h3>WHO IS TALKING2?</h3><p>A companion take on knowing who's speaking.</p></div>
-        <div class="app"><span class="tag">Accessibility</span><h3>Au'commadate</h3><p>Support for autistic kids and their families.</p></div>
-        <div class="app"><span class="tag">Safety</span><h3>CHECKYASHELF</h3><p>Food-safety tools for shoppers and residents.</p></div>
-        <div class="app"><span class="tag">Everyday</span><h3>CHECKFINEPRINT</h3><p>Reads the fine print in contracts so you don't miss what matters.</p></div>
-        <div class="app"><span class="tag">Social</span><h3>Wink One</h3><p>Share WINK cards person to person.</p></div>
-        <div class="app"><span class="tag">Social</span><h3>PASSEE</h3><p>Reaction cards powered by your face.</p></div>
-        <div class="app"><span class="tag">Communication</span><h3>Ahem.</h3><p>A small, polite way to get a word in.</p></div>
-        <div class="app"><span class="tag">Games</span><h3>PeWhipee</h3><p>Turns your own photos into games, right on your device.</p></div>
-        <div class="app"><span class="tag">Games</span><h3>HAWT POTATO</h3><p>A fast party game for passing the phone.</p></div>
-        <div class="app"><span class="tag">Games</span><h3>ROOZER</h3><p>Play with your face and motion.</p></div>
-        <div class="app"><span class="tag">Games</span><h3>ROOZER!</h3><p>More face- and motion-powered play.</p></div>
-        <div class="app"><span class="tag">Games</span><h3>Double Jumpx</h3><p>A quick-reflex jumping game.</p></div>
-        <div class="app"><span class="tag">Games</span><h3>GEE-14</h3><p>An arcade-style game for iPhone.</p></div>
-      </div>
-    </div>
+</div>
+<main id="main">
+  <section class="hero wrap">
+    <h1 class="wordmark" aria-label="Prater Apps"><span class="depth" aria-hidden="true">Prater Apps</span><span class="face" aria-hidden="true">Prater Apps</span></h1>
+    <h2>Different apps for everyday life.</h2>
+    <p>Independent iPhone apps by Courtney Prater.</p>
+    <a class="btn" href="#apps">Explore apps</a>
   </section>
 
-  <section id="about">
-    <div class="wrap two">
-      <div>
-        <h2>About</h2>
-        <p>Prater Apps LLC is a Michigan limited liability company founded by Courtney Prater, a Detroit-area iOS developer who spent 25 years in commercial construction before teaching herself to build apps.</p>
-        <p>Our focus is simple: tools that give people a voice, keep families safe, and are genuinely fun to use, built natively for Apple devices with accessibility from the first line of code.</p>
-      </div>
-      <div>
-        <h2>Company details</h2>
-        <dl>
-          <dt>Legal name</dt><dd>Prater Apps LLC</dd>
-          <dt>Formed</dt><dd>November 2026, State of Michigan</dd>
-          <dt>Location</dt><dd>Eastpointe, Michigan, USA</dd>
-          <dt>Founder</dt><dd>Courtney Prater</dd>
-        </dl>
-      </div>
-    </div>
+  <section class="sec wrap" aria-labelledby="feat">
+    <div class="sec-head"><h2 id="feat">Featured apps</h2><a href="/apps/">View all apps →</a></div>
+    <div class="featured"><a class="fcard" href="/apps/yappp/" style="--accent:#8B5CF6;--deep:#1A1238;--tint:#EDE4FF;--accentText:#7a50d8;--onAccent:#ffffff">
+  <div class="txt">
+    <div class="ttl"><img src="/assets/apps/yappp/icon.jpg" alt=""><h3>YAPPP</h3></div>
+    <p>Accessible speech tiles for everyday communication.</p>
+    <span class="go">Learn more ›</span>
+  </div>
+  <div class="shots" aria-hidden="true"><img class="land" src="/assets/apps/yappp/shot1.jpg" alt="" loading="lazy"></div>
+</a><a class="fcard" href="/apps/passee/" style="--accent:#E8734A;--deep:#13202B;--tint:#FFE9DD;--accentText:#9d4d32;--onAccent:#ffffff">
+  <div class="txt">
+    <div class="ttl"><img src="/assets/apps/passee/icon.jpg" alt=""><h3>PASSEE</h3></div>
+    <p>Greeting cards that move. Turn your photos into beautiful postcards.</p>
+    <span class="go">Learn more ›</span>
+  </div>
+  <div class="shots" aria-hidden="true"><img src="/assets/apps/passee/shot1.jpg" alt="" loading="lazy"><img src="/assets/apps/passee/shot2.jpg" alt="" loading="lazy"></div>
+</a><a class="fcard" href="/apps/hawt-potato/" style="--accent:#F26B1D;--deep:#3A1406;--tint:#FFE4CC;--accentText:#a34813;--onAccent:#ffffff">
+  <div class="txt">
+    <div class="ttl"><img src="/assets/apps/hawt-potato/icon.jpg" alt=""><h3>Hawt Potato</h3></div>
+    <p>A fast, fun hot-potato party game.</p>
+    <span class="go">Learn more ›</span>
+  </div>
+  <div class="shots" aria-hidden="true"><img src="/assets/apps/hawt-potato/shot1.jpg" alt="" loading="lazy"><img src="/assets/apps/hawt-potato/shot2.jpg" alt="" loading="lazy"></div>
+</a></div>
   </section>
 
-  <section id="contact">
-    <div class="wrap">
-      <h2>Contact</h2>
-      <p class="sub">Schools, organizations, partners and press: we'd love to hear from you.</p>
-      <p><a class="btn" href="mailto:courtney@praterapps.com">courtney@praterapps.com</a></p>
-      <p class="sub">Using PluggedIn and need help with a job or your account? Visit <a href="pluggedin/support">PluggedIn Support</a>.</p>
+  <section class="sec wrap" id="apps" aria-labelledby="all">
+    <div class="sec-head"><h2 id="all">All apps</h2><a href="https://apps.apple.com/us/developer/courtney-prater/id1673042208" target="_blank" rel="noopener">See them on the App Store ↗</a></div>
+    <div class="filters" role="group" aria-label="Filter apps"><button class="chip" aria-pressed="true" data-filter="All">All</button><button class="chip" aria-pressed="false" data-filter="Communication">Communication</button><button class="chip" aria-pressed="false" data-filter="Games">Games</button><button class="chip" aria-pressed="false" data-filter="Productivity">Productivity</button><button class="chip" aria-pressed="false" data-filter="Social">Social</button></div>
+    <div class="grid" id="grid"><a class="tile" href="/apps/yappp/" style="--accent:#8B5CF6;--deep:#1A1238;--tint:#EDE4FF;--accentText:#7a50d8;--onAccent:#ffffff" data-cat="Communication" data-name="yappp yappp - aac accessible speech tiles for everyday communication.">
+  <img src="/assets/apps/yappp/icon.jpg" alt="" loading="lazy">
+  <div><b>YAPPP</b><span>Accessible speech tiles for everyday communication.</span><div class="meta">Communication · $0.99</div></div>
+</a><a class="tile" href="/apps/passee/" style="--accent:#E8734A;--deep:#13202B;--tint:#FFE9DD;--accentText:#9d4d32;--onAccent:#ffffff" data-cat="Social" data-name="passee  greeting cards that move. turn your photos into beautiful postcards.">
+  <img src="/assets/apps/passee/icon.jpg" alt="" loading="lazy">
+  <div><b>PASSEE</b><span>Greeting cards that move. Turn your photos into beautiful postcards.</span><div class="meta">Social · Free</div></div>
+</a><a class="tile" href="/apps/hawt-potato/" style="--accent:#F26B1D;--deep:#3A1406;--tint:#FFE4CC;--accentText:#a34813;--onAccent:#ffffff" data-cat="Games" data-name="hawt potato hawt potato a fast, fun hot-potato party game.">
+  <img src="/assets/apps/hawt-potato/icon.jpg" alt="" loading="lazy">
+  <div><b>Hawt Potato</b><span>A fast, fun hot-potato party game.</span><div class="meta">Games · Free</div></div>
+</a><a class="tile" href="/apps/aucommadate/" style="--accent:#1074F2;--deep:#062A5C;--tint:#DDEBFF;--accentText:#0e66d4;--onAccent:#ffffff" data-cat="Communication" data-name="au&#x27;commadate  a touch-only communication board and family support app.">
+  <img src="/assets/apps/aucommadate/icon.jpg" alt="" loading="lazy">
+  <div><b>Au&#x27;commadate</b><span>A touch-only communication board and family support app.</span><div class="meta">Communication · Free</div></div>
+</a><a class="tile" href="/apps/storeemail/" style="--accent:#7C4DFF;--deep:#170F33;--tint:#ECE4FF;--accentText:#6d43e0;--onAccent:#ffffff" data-cat="Productivity" data-name="storeemail  your email, told as stories you can watch and hear.">
+  <img src="/assets/apps/storeemail/icon.jpg" alt="" loading="lazy">
+  <div><b>StoreeMail</b><span>Your email, told as stories you can watch and hear.</span><div class="meta">Productivity · Free</div></div>
+</a><a class="tile" href="/apps/ahem/" style="--accent:#E07B2E;--deep:#140D08;--tint:#FBE6D3;--accentText:#98531e;--onAccent:#ffffff" data-cat="Communication" data-name="ahem.  video messages in your own voice, for when a text isn&#x27;t enough.">
+  <img src="/assets/apps/ahem/icon.jpg" alt="" loading="lazy">
+  <div><b>Ahem.</b><span>Video messages in your own voice, for when a text isn&#x27;t enough.</span><div class="meta">Communication · Free</div></div>
+</a><a class="tile" href="/apps/wis/" style="--accent:#4A6CF7;--deep:#141933;--tint:#E2E8FF;--accentText:#415fd9;--onAccent:#ffffff" data-cat="Communication" data-name="w.i.s.  who is speaking: say what you mean, and be heard.">
+  <img src="/assets/apps/wis/icon.jpg" alt="" loading="lazy">
+  <div><b>W.I.S.</b><span>Who Is Speaking: say what you mean, and be heard.</span><div class="meta">Communication · $0.99</div></div>
+</a><a class="tile" href="/apps/who-is-talking/" style="--accent:#A43CC4;--deep:#24103A;--tint:#F3E3FA;--accentText:#A43CC4;--onAccent:#ffffff" data-cat="Communication" data-name="who is talking2?  see the shape of a conversation, not just the words.">
+  <img src="/assets/apps/who-is-talking/icon.jpg" alt="" loading="lazy">
+  <div><b>WHO IS TALKING2?</b><span>See the shape of a conversation, not just the words.</span><div class="meta">Communication · Free</div></div>
+</a><a class="tile" href="/apps/checkfineprint/" style="--accent:#2F5BD8;--deep:#0F1C45;--tint:#E1E9FF;--accentText:#2F5BD8;--onAccent:#ffffff" data-cat="Productivity" data-name="checkfineprint  read contracts and long forms before you sign.">
+  <img src="/assets/apps/checkfineprint/icon.jpg" alt="" loading="lazy">
+  <div><b>CHECKFINEPRINT</b><span>Read contracts and long forms before you sign.</span><div class="meta">Productivity · $0.99</div></div>
+</a><a class="tile" href="/apps/checktheshelf/" style="--accent:#E3263A;--deep:#14224F;--tint:#FFE3E6;--accentText:#c72133;--onAccent:#ffffff" data-cat="Productivity" data-name="checktheshelf  before you buy it, check it. recalls and date codes in a scan.">
+  <img src="/assets/apps/checktheshelf/icon.jpg" alt="" loading="lazy">
+  <div><b>CHECKTHESHELF</b><span>Before you buy it, check it. Recalls and date codes in a scan.</span><div class="meta">Productivity · $0.99</div></div>
+</a><a class="tile" href="/apps/truss/" style="--accent:#D4A62A;--deep:#1A1814;--tint:#F8EFD6;--accentText:#7d6217;--onAccent:#111111" data-cat="Productivity" data-name="truss truss: crew push to talk crew push-to-talk that runs the whole production day.">
+  <img src="/assets/apps/truss/icon.jpg" alt="" loading="lazy">
+  <div><b>TRUSS</b><span>Crew push-to-talk that runs the whole production day.</span><div class="meta">Productivity · $2.99</div></div>
+</a><a class="tile" href="/apps/pewhipee/" style="--accent:#D9608E;--deep:#3A1426;--tint:#FBE1EB;--accentText:#a7496d;--onAccent:#ffffff" data-cat="Games" data-name="pewhipee  memory games made from your own photos.">
+  <img src="/assets/apps/pewhipee/icon.jpg" alt="" loading="lazy">
+  <div><b>PeWhipee</b><span>Memory games made from your own photos.</span><div class="meta">Games · Free</div></div>
+</a><a class="tile" href="/apps/double-jumpx/" style="--accent:#E23CC8;--deep:#1C1240;--tint:#FCE0F6;--accentText:#ae2d9a;--onAccent:#ffffff" data-cat="Games" data-name="double jumpx  a stylish jump-rope rhythm game.">
+  <img src="/assets/apps/double-jumpx/icon.jpg" alt="" loading="lazy">
+  <div><b>Double Jumpx</b><span>A stylish jump-rope rhythm game.</span><div class="meta">Games · Free</div></div>
+</a><a class="tile" href="/apps/wink-one/" style="--accent:#E9A93A;--deep:#1C2A60;--tint:#FCEFD8;--accentText:#8b6421;--onAccent:#111111" data-cat="Social" data-name="wink one  note-passing for real life.">
+  <img src="/assets/apps/wink-one/icon.jpg" alt="" loading="lazy">
+  <div><b>Wink One</b><span>Note-passing for real life.</span><div class="meta">Social · Free</div></div>
+</a><a class="tile" href="/apps/roozer-signals/" style="--accent:#F0A030;--deep:#24160A;--tint:#FDEBD0;--accentText:#8e5f1b;--onAccent:#111111" data-cat="Social" data-name="roozer!  send energy, mood and reaction without typing a paragraph.">
+  <img src="/assets/apps/roozer-signals/icon.jpg" alt="" loading="lazy">
+  <div><b>ROOZER!</b><span>Send energy, mood and reaction without typing a paragraph.</span><div class="meta">Social · $0.99</div></div>
+</a><a class="tile" href="/apps/roozer/" style="--accent:#C9A45C;--deep:#111111;--tint:#F3EBDA;--accentText:#766035;--onAccent:#111111" data-cat="Games" data-name="roozer  face, eye and voice challenge games. don&#x27;t flinch.">
+  <img src="/assets/apps/roozer/icon.jpg" alt="" loading="lazy">
+  <div><b>ROOZER</b><span>Face, eye and voice challenge games. Don&#x27;t flinch.</span><div class="meta">Games · Free</div></div>
+</a><a class="tile" href="/apps/gee-14/" style="--accent:#F2600C;--deep:#2A0B02;--tint:#FFE2D2;--accentText:#ba4908;--onAccent:#ffffff" data-cat="Games" data-name="gee-14  don&#x27;t flinch: fast reflex and focus games.">
+  <img src="/assets/apps/gee-14/icon.jpg" alt="" loading="lazy">
+  <div><b>GEE-14</b><span>Don&#x27;t Flinch: fast reflex and focus games.</span><div class="meta">Games · Free</div></div>
+</a><a class="tile" href="/apps/honey-badger/" style="--accent:#E0A82E;--deep:#1A1A1A;--tint:#F8EDD3;--accentText:#85631a;--onAccent:#111111" data-cat="Games" data-name="honey badger honeybadger game honey badger: the last hive. a cartoon action adventure.">
+  <img src="/assets/apps/honey-badger/icon.jpg" alt="" loading="lazy">
+  <div><b>Honey Badger</b><span>Honey Badger: The Last Hive. A cartoon action adventure.</span><div class="meta">Games · Free</div></div>
+</a><a class="tile" href="/pluggedin/" style="--accent:#FFD60A;--deep:#111111;--tint:#FFF4BF;--accentText:#756103;--onAccent:#111111" data-cat="Productivity" data-name="pluggedin  hire local help or earn on your schedule. every job verified.">
+  <img src="/assets/apps/pluggedin/icon.jpg" alt="" loading="lazy">
+  <div><b>PluggedIn<span class="badge">Soon</span></b><span>Hire local help or earn on your schedule. Every job verified.</span><div class="meta">Productivity · Coming soon</div></div>
+</a></div>
+  </section>
+
+  <section class="sec wrap" id="about" aria-labelledby="ab">
+    <div class="about">
+      <div class="panel">
+        <h3 id="ab">About Prater Apps</h3>
+        <p>Prater Apps LLC is an independent studio in Eastpointe, Michigan, run by Courtney Prater. We build iPhone apps for real, everyday moments: tools that help people communicate, stay safe and get work done, and games that bring people together.</p>
+        <p>Many of our apps are made for people who are often left out of mainstream technology: nonspeaking and minimally verbal people, their families and caregivers, and neighbors in Detroit and beyond.</p>
+      </div>
+      <div class="panel" id="support">
+        <h3>Support</h3>
+        <p>Questions about an app, a purchase or your data? We answer every message.</p>
+        <ul>
+          <li>Email <a href="mailto:courtney@praterapps.com">courtney@praterapps.com</a></li>
+          <li>Read our <a href="/privacy.html">Privacy Policy</a></li>
+          <li>PluggedIn help: <a href="/pluggedin/support">PluggedIn Support</a></li>
+        </ul>
+      </div>
     </div>
   </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <span>© 2026 Prater Apps LLC. All rights reserved.</span>
-    <span><a href="privacy.html">Privacy Policy</a> · <a href="pluggedin/privacy">PluggedIn Privacy</a> · <a href="pluggedin/support">PluggedIn Support</a> · <a href="pluggedin/terms">PluggedIn Terms</a></span>
+<footer class="gf">
+  <div class="wrap cols">
+    <div>© 2026 Prater Apps LLC · Eastpointe, Michigan</div>
+    <div class="links"><a href="/apps/">All apps</a><a href="/pluggedin/">PluggedIn</a><a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:courtney@praterapps.com">courtney@praterapps.com</a>
+      <a href="https://apps.apple.com/us/developer/courtney-prater/id1673042208">App Store</a></div>
   </div>
 </footer>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>
