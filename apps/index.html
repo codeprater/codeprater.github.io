@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#FBF3E6">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,800..900&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v=4">
 
 </head>
 <body>
@@ -20,7 +20,7 @@
   <div class="wrap bar">
     <a class="logo" href="/" aria-label="Prater Apps home"><svg class="p" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE27A"/><stop offset=".55" stop-color="#F7A21B"/><stop offset="1" stop-color="#C8560A"/></linearGradient></defs><path d="M14 6h22c11 0 18 7 18 17s-7 17-18 17h-8v18H14z" fill="#9A3F0A" transform="translate(2 3)"/><path d="M14 6h22c11 0 18 7 18 17s-7 17-18 17h-8v18H14zM28 18v11h7c3.6 0 6-2.2 6-5.5S38.6 18 35 18z" fill="url(#lg)" fill-rule="evenodd"/></svg><span>Prater Apps</span></a>
     <nav aria-label="Site">
-      <a class="nl" href="/apps/" aria-current="page">Apps</a><a class="nl" href="/#about">About</a><a class="nl" href="/#support">Support</a>
+      <a class="nl" href="/apps/" aria-current="page">Apps</a><a class="nl" href="/#platforms">Watch &amp; TV</a><a class="nl" href="/#soon">Coming soon</a><a class="nl" href="/#about">About</a><a class="nl" href="/#support">Support</a>
       <button class="icon-btn" id="searchBtn" aria-label="Search apps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.6-4.6"/></svg></button>
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </nav>
@@ -40,7 +40,7 @@
 <main id="main">
   <section class="sec wrap" aria-labelledby="all" style="padding-top:40px">
     <div class="sec-head"><h2 id="all">All apps</h2><a href="https://apps.apple.com/us/developer/courtney-prater/id1673042208" target="_blank" rel="noopener">See them on the App Store ↗</a></div>
-    <div class="filters" role="group" aria-label="Filter apps"><button class="chip" aria-pressed="true" data-filter="All">All</button><button class="chip" aria-pressed="false" data-filter="Communication">Communication</button><button class="chip" aria-pressed="false" data-filter="Games">Games</button><button class="chip" aria-pressed="false" data-filter="Productivity">Productivity</button><button class="chip" aria-pressed="false" data-filter="Social">Social</button></div>
+    <div class="filters" role="group" aria-label="Filter apps"><button class="chip" aria-pressed="true" data-filter="All">All</button><button class="chip" aria-pressed="false" data-filter="Communication">Communication</button><button class="chip" aria-pressed="false" data-filter="Games">Games</button><button class="chip" aria-pressed="false" data-filter="Lifestyle">Lifestyle</button><button class="chip" aria-pressed="false" data-filter="Productivity">Productivity</button><button class="chip" aria-pressed="false" data-filter="Social">Social</button></div>
     <div class="grid" id="grid"><a class="tile" href="/apps/yappp/" style="--accent:#8B5CF6;--deep:#1A1238;--tint:#EDE4FF;--accentText:#7a50d8;--onAccent:#ffffff" data-cat="Communication" data-name="yappp yappp - aac accessible speech tiles for everyday communication.">
   <img src="/assets/apps/yappp/icon.jpg" alt="" loading="lazy">
   <div><b>YAPPP</b><span>Accessible speech tiles for everyday communication.</span><div class="meta">Communication · $0.99</div></div>
@@ -98,7 +98,22 @@
 </a><a class="tile" href="/apps/cleanee/" data-cat="Productivity" data-name="cleanee laundry wash fold production staff crew hotel pickup billing support">
   <img src="/assets/apps/cleanee/icon.jpg" alt="" loading="lazy">
   <div><b>Cleanee</b><span>Hotel laundry pickup and delivery for production crews.</span><div class="meta">Crew Plan · $99/month</div></div>
-</a><a class="tile" href="/pluggedin/" style="--accent:#FFD60A;--deep:#111111;--tint:#FFF4BF;--accentText:#756103;--onAccent:#111111" data-cat="Productivity" data-name="pluggedin  hire local help or earn on your schedule. every job verified.">
+</a><!--soon-tiles--><a class="tile" href="/apps/owwl/" style="--accent:#F2B84B;--deep:#0E1330;--tint:#E9EAF8;--accentText:#7d5f26;--onAccent:#111111" data-cat="Social" data-name="owwl  private messaging you can answer with your face.">
+  <img src="/assets/apps/owwl/icon.jpg" alt="" loading="lazy">
+  <div><b>OWWL<span class="badge">Soon</span></b><span>Private messaging you can answer with your face.</span><div class="meta">Social · Coming soon</div></div>
+</a><a class="tile" href="/apps/doozer/" style="--accent:#19B5A5;--deep:#062B2E;--tint:#D9F5F1;--accentText:#107a6f;--onAccent:#111111" data-cat="Communication" data-name="doozer  say it with your face. messages without typing.">
+  <img src="/assets/apps/doozer/icon.jpg" alt="" loading="lazy">
+  <div><b>Doozer<span class="badge">Soon</span></b><span>Say it with your face. Messages without typing.</span><div class="meta">Communication · Coming soon</div></div>
+</a><a class="tile" href="/apps/prater/" style="--accent:#FF4F6D;--deep:#1A0B1F;--tint:#FFE1E7;--accentText:#c53c53;--onAccent:#ffffff" data-cat="Games" data-name="prater  one game across your iphone, apple watch and headphones.">
+  <img src="/assets/apps/prater/icon.jpg" alt="" loading="lazy">
+  <div><b>Prater<span class="badge">Soon</span></b><span>One game across your iPhone, Apple Watch and headphones.</span><div class="meta">Games · Coming soon</div></div>
+</a><a class="tile" href="/apps/heroles/" style="--accent:#E5383B;--deep:#0B1B3A;--tint:#FFE2E2;--accentText:#c93133;--onAccent:#ffffff" data-cat="Games" data-name="heroles  race the clock through the maze. heroes against villains.">
+  <img src="/assets/apps/heroles/icon.jpg" alt="" loading="lazy">
+  <div><b>HEROLES<span class="badge">Soon</span></b><span>Race the clock through the maze. Heroes against villains.</span><div class="meta">Games · Coming soon</div></div>
+</a><a class="tile" href="/apps/gormee/" style="--accent:#1FA8E0;--deep:#06283D;--tint:#DCF2FB;--accentText:#147198;--onAccent:#ffffff" data-cat="Lifestyle" data-name="gormee  know what&#x27;s in your drink.">
+  <img src="/assets/apps/gormee/icon.jpg" alt="" loading="lazy">
+  <div><b>GORMEE<span class="badge">Soon</span></b><span>Know what&#x27;s in your drink.</span><div class="meta">Lifestyle · Coming soon</div></div>
+</a><!--/soon-tiles--><a class="tile" href="/pluggedin/" style="--accent:#FFD60A;--deep:#111111;--tint:#FFF4BF;--accentText:#756103;--onAccent:#111111" data-cat="Productivity" data-name="pluggedin  hire local help or earn on your schedule. every job verified.">
   <img src="/assets/apps/pluggedin/icon.jpg" alt="" loading="lazy">
   <div><b>PluggedIn<span class="badge">Soon</span></b><span>Hire local help or earn on your schedule. Every job verified.</span><div class="meta">Productivity · Coming soon</div></div>
 </a></div>
@@ -114,6 +129,6 @@
       <a href="https://www.linkedin.com/in/courtney-prater-55651a264/" rel="me noopener" target="_blank">Courtney on LinkedIn</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=3" defer></script>
+<script src="/assets/site.js?v=4" defer></script>
 </body>
 </html>

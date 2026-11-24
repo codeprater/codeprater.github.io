@@ -41,3 +41,98 @@ APPS = [
 
 PLUGGEDIN = dict(slug="pluggedin", name="PluggedIn", tagline="Hire local help or earn on your schedule. Every job verified.",
                  cat="Productivity", accent="#FFD60A", deep="#111111", tint="#FFF4BF", url="/pluggedin/", soon=True)
+
+# Coming-soon apps (not on the App Store yet). Each gets a page at /apps/<slug>/.
+# about = list of (heading, paragraph or list of bullets). platforms = where it will run.
+SOON = [
+    dict(slug="owwl", name="OWWL", tagline="Private messaging you can answer with your face.",
+         cat="Social", accent="#F2B84B", deep="#0E1330", tint="#E9EAF8", soon=True, platforms=["iPhone", "iPad"],
+         about=[
+             ("", "OWWL is a private messenger built around hands-free replies. Raise your eyebrows, smile or blink, and OWWL sends your answer. It is for the moments when your hands are full, and for people who find typing hard."),
+             ("What we're building", [
+                 "Reply with a simple face gesture, picked from a library of gestures",
+                 "Gestures simple enough for a kid to understand without a lesson",
+                 "Pseudonymous channels, with no phone number or email needed",
+                 "Built on iCloud, with no Prater Apps server in the middle",
+                 "Nearby device-to-device chat when you're in the same room",
+                 "Every channel gets its own name, typeface and mood colors",
+             ]),
+             ("Status", "OWWL is in development for iPhone and iPad."),
+         ]),
+    dict(slug="doozer", name="Doozer", tagline="Say it with your face. Messages without typing.",
+         cat="Communication", accent="#19B5A5", deep="#062B2E", tint="#D9F5F1", soon=True, platforms=["iPhone"],
+         about=[
+             ("", "Doozer reads simple face gestures and turns them into words as you make them, so you can write and send a message without typing or speaking out loud."),
+             ("Made for", [
+                 "People who can't easily type or speak",
+                 "Quiet moments when you need to say something without anyone noticing",
+                 "Getting a message to someone you trust, fast",
+             ]),
+             ("What we're building", [
+                 "A full-screen composer that opens blank and stays out of your way",
+                 "Preset phrases, quick-send and predictive text",
+                 "A settings page where you choose what each gesture means",
+                 "Support for eye tracking, head tracking and Switch Control",
+                 "One trusted contact you pick as your caregiver",
+                 "Real two-way conversations, with a text message fallback for people who don't have Doozer",
+             ]),
+             ("Status", "Doozer is in development for iPhone."),
+         ]),
+    dict(slug="prater", name="Prater", tagline="One game across your iPhone, Apple Watch and headphones.",
+         cat="Games", accent="#FF4F6D", deep="#1A0B1F", tint="#FFE1E7", soon=True,
+         platforms=["iPhone", "iPad", "Apple Watch", "Apple TV"],
+         about=[
+             ("", "Prater turns the devices you already carry into one playground. A sound lands in one ear, a tap lands on your wrist, and you answer by tapping or tilting your phone. Every round gets faster."),
+             ("What we're building", [
+                 "Crosswire, the first game: answer on the same side, or the opposite side, before time runs out",
+                 "Sound cues that work with any Bluetooth headphones, not just AirPods",
+                 "Apple Watch taps and wrist controls",
+                 "iPhone and iPad motion: lift the side you heard",
+                 "Play against a bot or challenge a friend",
+                 "Sound packs you choose: music bites, instrumentals and animal sounds",
+                 "A short daily reaction check, so you can see your own reflexes over time",
+                 "An Apple TV version for the living room",
+             ]),
+             ("Status", "Prater is in development for iPhone, iPad, Apple Watch and Apple TV."),
+         ]),
+    dict(slug="heroles", name="HEROLES", tagline="Race the clock through the maze. Heroes against villains.",
+         cat="Games", accent="#E5383B", deep="#0B1B3A", tint="#FFE2E2", soon=True, platforms=["iPhone"],
+         about=[
+             ("", "HEROLES is a timed maze game. Heroes have to reach the safe area before the clock runs out, while the villains hunt them down."),
+             ("How it plays", [
+                 "Themed mazes with a countdown on every run",
+                 "Tag and hide-and-seek inside the maze",
+                 "Capture the flag: lose all your flags and you're out",
+                 "One player or many",
+                 "Kids play the heroes. Parents and loved ones play the villains.",
+             ]),
+             ("Status", "HEROLES is in development, starting on iPhone."),
+         ]),
+    dict(slug="gormee", name="GORMEE", tagline="Know what's in your drink.",
+         cat="Lifestyle", accent="#1FA8E0", deep="#06283D", tint="#DCF2FB", soon=True, platforms=["iPhone"],
+         about=[
+             ("", "GORMEE started as a water quality log and hydration tracker. Next, it reads any drink: scan the bottle and get a one-sentence answer about what's inside."),
+             ("What we're building", [
+                 "Record water test results, attach photos and export your logs",
+                 "Hydration tracking",
+                 "Scan a bottle's ingredients and codes, right on your iPhone",
+                 "One-sentence results two ways: straight, or as a roast",
+                 "A full ingredient report for every scan",
+                 "A monthly report of what you've been drinking",
+             ]),
+             ("Status", "GORMEE is in development for iPhone."),
+         ]),
+]
+
+# Apps beyond the iPhone. live=True means the App Store lists that platform today.
+WATCH = [
+    dict(slug="hawt-potato", live=True, note="The hot-potato party game comes with an Apple Watch app."),
+    dict(slug="yappp", live=True, note="Speech tiles for everyday communication, on Apple Watch as well as iPhone, iPad, Mac and CarPlay."),
+    dict(slug="truss", live=True, note="Push-to-talk, the time clock and fall detection, right from the wrist."),
+    dict(slug="passee", live=True, note="Moving greeting cards on iPhone, iPad and Apple Watch, kept in sync with iCloud."),
+    dict(slug="prater", live=False, note="Built around the Watch: taps on your wrist are part of the game."),
+]
+TV = [
+    dict(slug="hawt-potato", live=True, note="The party game has an Apple TV app, so the whole room can play along."),
+    dict(slug="prater", live=False, note="An Apple TV version is planned for the first release."),
+]

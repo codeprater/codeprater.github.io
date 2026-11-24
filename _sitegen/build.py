@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """Builds praterapps.com: home, all apps, one page per app, privacy. Run from anywhere."""
 import html, json, os, re, shutil, sys
-from PIL import Image
+from PIL import Image, ImageDraw
 
 sys.path.insert(0, os.path.dirname(__file__))
-from apps import APPS, PLUGGEDIN
+from apps import APPS, PLUGGEDIN, SOON, WATCH, TV
 
 SRC = "/home/claude/assets-in"
-OUT = "/home/claude/codeprater.github.io"
+OUT = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 GEN = os.path.dirname(__file__)
-LOOKUP = {r["trackId"]: r for r in json.load(open(f"{SRC}/lookup.json"))["results"] if r.get("wrapperType") == "software"}
+LOOKUP = ({r["trackId"]: r for r in json.load(open(f"{SRC}/lookup.json"))["results"] if r.get("wrapperType") == "software"}
+          if os.path.exists(f"{SRC}/lookup.json") else {})   # only the full build needs App Store data
+V = 4   # cache-buster for site.css / site.js
 E = html.escape
 
 
@@ -66,6 +68,7 @@ def prepare_assets():
             im = im.resize((600, round(im.height * 600 / im.width)), Image.LANCZOS)
             im.save(f"{d}/shot{i}.jpg", quality=82, optimize=True)
             PLUGGEDIN["shots"].append((f"shot{i}.jpg", False))
+    make_soon_icons()
 
 
 # ---------- shared chrome ----------
@@ -94,7 +97,7 @@ def head(title, desc, canonical, extra=""):
 <meta name="theme-color" content="#FBF3E6">
 <link rel="icon" href="/assets/favicon.png">
 {FONTS}
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v={V}">
 {extra}
 </head>
 """
@@ -109,7 +112,7 @@ def header(current=""):
   <div class="wrap bar">
     <a class="logo" href="/" aria-label="Prater Apps home">{LOGO}<span>Prater Apps</span></a>
     <nav aria-label="Site">
-      {nav("/apps/", "Apps", "apps")}{nav("/#about", "About", "about")}{nav("/#support", "Support", "support")}
+      {nav("/apps/", "Apps", "apps")}{nav("/#platforms", "Watch &amp; TV", "platforms")}{nav("/#soon", "Coming soon", "soon")}{nav("/#about", "About", "about")}{nav("/#support", "Support", "support")}
       <button class="icon-btn" id="searchBtn" aria-label="Search apps">{SEARCH_ICON}</button>
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">{MENU_ICON}</button>
     </nav>
@@ -129,7 +132,7 @@ def header(current=""):
 """
 
 
-FOOTER = """<footer class="gf">
+FOOTER = f"""<footer class="gf">
   <div class="wrap cols">
     <div>© 2026 Prater Apps LLC · Eastpointe, Michigan</div>
     <div class="links"><a href="/apps/">All apps</a><a href="/pluggedin/">PluggedIn</a><a href="/privacy.html">Privacy Policy</a>
@@ -139,7 +142,7 @@ FOOTER = """<footer class="gf">
       <a href="https://www.linkedin.com/in/courtney-prater-55651a264/" rel="me noopener" target="_blank">Courtney on LinkedIn</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=3" defer></script>
+<script src="/assets/site.js?v={V}" defer></script>
 </body>
 </html>
 """
@@ -186,7 +189,7 @@ def tile(app):
 
 
 def all_apps():
-    return APPS + [PLUGGEDIN]
+    return APPS + SOON + [PLUGGEDIN]
 
 
 def build_home():
@@ -194,12 +197,12 @@ def build_home():
     cats = ["All"] + sorted({a["cat"] for a in all_apps()})
     chips = "".join(f'<button class="chip" aria-pressed="{"true" if c == "All" else "false"}" data-filter="{E(c)}">{E(c)}</button>' for c in cats)
     page = head("Prater Apps — Different apps for everyday life",
-                "Independent iPhone apps by Courtney Prater: communication, accessibility, games and tools for everyday life.", "/")
+                HOME_DESC, "/")
     page += "<body>\n" + header() + f"""<main id="main">
   <section class="hero wrap">
     <h1 class="wordmark" aria-label="Prater Apps"><span class="depth" aria-hidden="true">Prater Apps</span><span class="face" aria-hidden="true">Prater Apps</span></h1>
     <h2>Different apps for everyday life.</h2>
-    <p>Independent iPhone apps by Courtney Prater.</p>
+    <p>{HERO_P}</p>
     <a class="btn" href="#apps">Explore apps</a>
   </section>
 
@@ -214,6 +217,7 @@ def build_home():
     <div class="grid" id="grid">{''.join(tile(a) for a in all_apps())}</div>
   </section>
 
+  {extra_sections()}
   <section class="sec wrap" id="about" aria-labelledby="ab">
     <div class="about">
       <div class="panel">
@@ -370,6 +374,242 @@ def build_app(app):
     open(f"{d}/index.html", "w").write(page)
 
 
+# ---------- coming soon, Apple Watch and Apple TV ----------
+HERO_P = "Independent apps for iPhone, iPad, Apple Watch and Apple TV by Courtney Prater."
+HOME_DESC = ("Independent apps by Courtney Prater for iPhone, iPad, Apple Watch and Apple TV: "
+             "communication, accessibility, games and tools for everyday life.")
+WATCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="6" width="11" height="12" rx="3.2"/><path d="M9 6l.6-3h4.8L15 6M9 18l.6 3h4.8l.6-3M17.5 10.5h1.2"/></svg>'
+TV_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2.2"/><path d="M8 20.5h8"/></svg>'
+
+
+def by_slug(slug):
+    return next(a for a in all_apps() if a["slug"] == slug)
+
+
+def plat_rows(items):
+    out = []
+    for it in items:
+        a = by_slug(it["slug"])
+        pill = '<span class="pill live">Available</span>' if it["live"] else '<span class="pill">Coming soon</span>'
+        out.append(f"""<li><a class="prow" href="{app_url(a)}" style="{theme(a)}">
+        <img src="/assets/apps/{a['slug']}/icon.jpg" alt="" loading="lazy">
+        <div><b>{E(a['name'])}{pill}</b><span>{E(it['note'])}</span></div></a></li>""")
+    return "".join(out)
+
+
+def soon_card(a):
+    plats = "".join(f"<span>{E(p)}</span>" for p in a.get("platforms", ["iPhone"]))
+    lead = next((t for h, t in a.get("about", []) if isinstance(t, str)), a["tagline"])
+    return f"""<a class="scard" href="{app_url(a)}" style="{theme(a)}">
+      <div class="top"><img src="/assets/apps/{a['slug']}/icon.jpg" alt="" loading="lazy"><div><h3>{E(a['name'])}</h3><p class="tg">{E(a['tagline'])}</p></div></div>
+      <p>{E(lead)}</p>
+      <div class="chips">{plats}</div>
+    </a>"""
+
+
+PLUGGEDIN.setdefault("platforms", ["iPhone"])
+PLUGGEDIN.setdefault("about", [("", "PluggedIn connects neighbors who need a hand with local workers who want to earn on their own schedule, with every job verified.")])
+
+
+def extra_sections():
+    return f"""<!--extra-->
+  <section class="sec wrap" id="platforms" aria-labelledby="pf">
+    <div class="sec-head"><h2 id="pf">Beyond the iPhone</h2></div>
+    <p class="lede">Some moments don't happen on a phone. A game belongs on the biggest screen in the room, and a call for help belongs on your wrist. These are the Prater Apps you can use on Apple Watch and Apple TV, and the ones on the way.</p>
+    <div class="plats">
+      <div class="panel plat">
+        <h3>{WATCH_ICON}Apple Watch apps</h3>
+        <p>For quick moments when pulling out a phone is too slow: one tap to speak, talk to your crew or stay in the game.</p>
+        <ul>{plat_rows(WATCH)}</ul>
+      </div>
+      <div class="panel plat">
+        <h3>{TV_ICON}Apple TV apps</h3>
+        <p>For game night. Put it on the TV and everyone in the room is part of it.</p>
+        <ul>{plat_rows(TV)}</ul>
+        <p class="fine">More Apple TV apps are on the way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="soon" aria-labelledby="cs">
+    <div class="sec-head"><h2 id="cs">Coming soon</h2><a href="mailto:courtney@praterapps.com?subject=Tell%20me%20about%20new%20Prater%20Apps">Get launch news →</a></div>
+    <p class="lede">What we're building now. Each one has its own page, and you can ask to be told the day it launches.</p>
+    <div class="soon">{''.join(soon_card(a) for a in SOON + [PLUGGEDIN])}</div>
+  </section>
+  <!--/extra-->"""
+
+
+def build_soon(app):
+    name = app["name"]
+    blocks = []
+    for h, body in app["about"]:
+        if h:
+            blocks.append(f"<h3>{E(h)}</h3>")
+        blocks.append("<ul>" + "".join(f"<li>{E(i)}</li>" for i in body) + "</ul>" if isinstance(body, list) else f"<p>{E(body)}</p>")
+    plats = app.get("platforms", ["iPhone"])
+    notify = f'mailto:courtney@praterapps.com?subject=Tell%20me%20when%20{E(name)}%20launches'
+    info = [("Developer", "Prater Apps LLC"), ("Category", app["cat"]), ("Status", "In development"), ("Platforms", ", ".join(plats))]
+    info_html = "".join(f"<dt>{E(k)}</dt><dd>{E(v)}</dd>" for k, v in info)
+    more = [a for a in SOON if a["slug"] != app["slug"]] + [PLUGGEDIN]
+    page = head(f"{name} — Coming soon from Prater Apps", app["tagline"], f'/apps/{app["slug"]}/',
+                f'<meta property="og:image" content="https://praterapps.com/assets/apps/{app["slug"]}/icon.jpg">')
+    page = page.replace('<meta name="theme-color" content="#FBF3E6">', f'<meta name="theme-color" content="{app["deep"]}">')
+    icon = f'/assets/apps/{app["slug"]}/icon.jpg'
+    page += f'<body style="{theme(app)}">\n' + header() + f"""<div class="appnav">
+  <div class="wrap bar">
+    <a class="nm" href="#top"><img src="{icon}" alt="">{E(name)}</a>
+    <nav class="links" aria-label="{E(name)}"><a href="#top">Overview</a><a href="#about-app">What's coming</a><a href="#info">Information</a></nav>
+    <a class="get" href="{notify}">Notify me</a>
+  </div>
+</div>
+<main id="main">
+  <section class="ahero" id="top">
+    <div class="wrap">
+      <div>
+        <img class="icon" src="{icon}" alt="{E(name)} app icon" width="132" height="132">
+        <div class="kicker">Coming soon · {E(app['cat'])}</div>
+        <h1>{E(name)}</h1>
+        <p class="tag">{E(app['tagline'])}</p>
+        <a class="store notify" href="{notify}"><span><small>Not on the App Store yet</small><b>Tell me when it launches</b></span></a>
+        <div class="facts">{''.join(f'<span>{E(p)}</span>' for p in plats)}</div>
+      </div>
+      <img class="bigicon dup" src="{icon}" alt="">
+    </div>
+  </section>
+  <section class="asec wrap" id="about-app" aria-labelledby="ft">
+    <h2 id="ft">About {E(name)}</h2>
+    <div class="desc">
+      <div class="copy">{''.join(blocks)}<p class="fine">{E(name)} is still being built, so features can change before launch.</p></div>
+      <aside class="info" id="info" aria-label="Information">
+        <dl>{info_html}</dl>
+        <div class="links">
+          <a href="{notify}">Tell me when it launches <span>›</span></a>
+          <a href="mailto:courtney@praterapps.com?subject={E(name)}">Ask about {E(name)} <span>›</span></a>
+          <a href="/privacy.html">Privacy Policy <span>›</span></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section class="more wrap" aria-labelledby="mo">
+    <div class="sec-head"><h2 id="mo">Also coming soon</h2><a href="/apps/">See all apps →</a></div>
+    <div class="grid">{''.join(tile(a) for a in more)}</div>
+  </section>
+</main>
+""" + FOOTER
+    d = f"{OUT}/apps/{app['slug']}"
+    os.makedirs(d, exist_ok=True)
+    open(f"{d}/index.html", "w").write(page)
+
+
+def make_soon_icons():
+    """Placeholder icons drawn in each app's colors. A real icon saved as _sitegen/icons/<slug>.png wins."""
+    S = 1024
+    rgb = lambda h: tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
+    mix = lambda a, b, t: tuple(round(a[i] + (b[i] - a[i]) * t) for i in range(3))
+    for app in SOON:
+        d = f"{OUT}/assets/apps/{app['slug']}"
+        os.makedirs(d, exist_ok=True)
+        real = f"{GEN}/icons/{app['slug']}.png"
+        if os.path.exists(real):
+            Image.open(real).convert("RGB").resize((512, 512), Image.LANCZOS).save(f"{d}/icon.jpg", quality=90)
+            continue
+        acc, deep, white = rgb(app["accent"]), rgb(app["deep"]), (255, 255, 255)
+        im = Image.new("RGB", (S, S), deep)
+        g = ImageDraw.Draw(im)
+        top = mix(deep, acc, .38)
+        for y in range(S):
+            g.line([(0, y), (S, y)], fill=mix(top, deep, y / S))
+        s = app["slug"]
+        if s == "owwl":
+            for cx in (330, 694):
+                g.ellipse([cx - 190, 300, cx + 190, 680], fill=white)
+                g.ellipse([cx - 118, 372, cx + 118, 608], fill=acc)
+                g.ellipse([cx - 58, 432, cx + 58, 548], fill=deep)
+            g.polygon([(452, 660), (572, 660), (512, 800)], fill=acc)
+            g.polygon([(140, 250), (330, 230), (210, 400)], fill=acc)
+            g.polygon([(884, 250), (694, 230), (814, 400)], fill=acc)
+        elif s == "doozer":
+            g.ellipse([150, 150, 874, 874], fill=acc)
+            g.ellipse([330, 380, 440, 490], fill=deep)
+            g.arc([570, 370, 710, 510], 200, 340, fill=deep, width=44)
+            g.arc([300, 340, 724, 740], 25, 155, fill=deep, width=52)
+        elif s == "prater":
+            g.rounded_rectangle([402, 260, 622, 764], 56, fill=white)
+            g.rounded_rectangle([432, 310, 592, 714], 26, fill=deep)
+            g.ellipse([462, 462, 562, 562], fill=acc)
+            for k, w in ((0, 46), (1, 40)):
+                r = 300 + k * 120
+                g.arc([512 - r, 512 - r, 512 + r, 512 + r], 140, 220, fill=acc, width=w)
+                g.arc([512 - r, 512 - r, 512 + r, 512 + r], -40, 40, fill=acc, width=w)
+        elif s == "heroles":
+            w = 54
+            pts = [(210, 814), (210, 210), (814, 210), (814, 814), (360, 814), (360, 360), (664, 360), (664, 664), (512, 664), (512, 512)]
+            g.line(pts, fill=white, width=w, joint="curve")
+            for x, y in pts[:1] + pts[-1:]:
+                g.ellipse([x - w // 2, y - w // 2, x + w // 2, y + w // 2], fill=white)
+            g.ellipse([452, 452, 572, 572], fill=acc)
+        elif s == "gormee":
+            g.polygon([(512, 150), (300, 560), (724, 560)], fill=acc)
+            g.ellipse([272, 400, 752, 880], fill=acc)
+            g.arc([352, 480, 672, 800], 100, 170, fill=white, width=40)
+        im.resize((512, 512), Image.LANCZOS).save(f"{d}/icon.jpg", quality=90)
+
+
+def patch_soon():
+    """Adds the coming-soon apps and the Watch / TV sections to the published site without the
+    App Store data a full build needs: python3 build.py soon"""
+    make_soon_icons()
+    shutil.copy(f"{GEN}/site.css", f"{OUT}/assets/site.css")
+    for a in SOON:
+        build_soon(a)
+    tiles = "<!--soon-tiles-->" + "".join(tile(a) for a in SOON) + "<!--/soon-tiles-->"
+    cats = ["All"] + sorted({a["cat"] for a in all_apps()})
+    chips = "".join(f'<button class="chip" aria-pressed="{"true" if c == "All" else "false"}" data-filter="{E(c)}">{E(c)}</button>' for c in cats)
+    for rel in ("index.html", "apps/index.html"):
+        s = open(f"{OUT}/{rel}").read()
+        s = re.sub(r"<!--soon-tiles-->.*?<!--/soon-tiles-->", "", s, flags=re.S)
+        assert s.count('<a class="tile" href="/pluggedin/"') == 1, rel
+        s = s.replace('<a class="tile" href="/pluggedin/"', tiles + '<a class="tile" href="/pluggedin/"')
+        s, n = re.subn(r'(<div class="filters"[^>]*>).*?</div>', lambda m: m.group(1) + chips + "</div>", s, flags=re.S)
+        assert n == 1, rel
+        if rel == "index.html":
+            s = re.sub(r"\s*<!--extra-->.*?<!--/extra-->", "", s, flags=re.S)
+            mark = '  <section class="sec wrap" id="about"'
+            assert s.count(mark) == 1
+            s = s.replace(mark, "  " + extra_sections() + "\n" + mark)
+            s = s.replace("<p>Independent iPhone apps by Courtney Prater.</p>", f"<p>{HERO_P}</p>")
+            s = s.replace(E("Independent iPhone apps by Courtney Prater: communication, accessibility, games and tools for everyday life."), E(HOME_DESC))
+            s = s.replace("We build iPhone apps for real, everyday moments", "We build apps for iPhone, iPad, Apple Watch and Apple TV, made for real, everyday moments")
+        open(f"{OUT}/{rel}", "w").write(s)
+    # search data
+    p = f"{OUT}/assets/site.js"
+    js = open(p).read()
+    m = re.search(r"const APPS = (\[.*?\]);\n", js, re.S)
+    data = [d for d in json.loads(m.group(1)) if d["u"] not in {app_url(a) for a in SOON}]
+    new = [dict(n=a["name"], t=a["tagline"], c=a["cat"], u=app_url(a), i=f'/assets/apps/{a["slug"]}/icon.jpg',
+                k=(a["name"] + " " + a["tagline"] + " " + a["cat"] + " coming soon " + " ".join(a["platforms"])).lower()) for a in SOON]
+    at = next((i for i, d in enumerate(data) if d["u"] == "/pluggedin/"), len(data))
+    data[at:at] = new
+    open(p, "w").write(js[:m.start(1)] + json.dumps(data, ensure_ascii=False) + js[m.end(1):])
+    # nav links and cache-buster on every generated page
+    nav_new = '<a class="nl" href="/#platforms">Watch &amp; TV</a><a class="nl" href="/#soon">Coming soon</a>'
+    n = 0
+    for root, _, files in os.walk(OUT):
+        if "/pluggedin" in root or "/.git" in root or "/_sitegen" in root:
+            continue
+        for f in files:
+            if f.endswith(".html"):
+                fp = os.path.join(root, f)
+                s = open(fp).read()
+                t = re.sub(r"(/assets/site\.(?:css|js))\?v=\d+", rf"\1?v={V}", s)
+                if nav_new not in t:
+                    t = t.replace('<a class="nl" href="/#about"', nav_new + '<a class="nl" href="/#about"')
+                if t != s:
+                    open(fp, "w").write(t)
+                    n += 1
+    print("soon pages:", len(SOON), "· pages touched:", n)
+
+
 # ---------- privacy ----------
 def build_privacy():
     src = open(f"{OUT}/privacy.html").read()
@@ -393,6 +633,9 @@ def build_favicon():
 
 
 if __name__ == "__main__":
+    if sys.argv[1:] == ["soon"]:
+        patch_soon()
+        sys.exit()
     os.makedirs(f"{OUT}/assets", exist_ok=True)
     prepare_assets()
     shutil.copy(f"{GEN}/site.css", f"{OUT}/assets/site.css")
@@ -402,6 +645,8 @@ if __name__ == "__main__":
     build_apps_index()
     for a in APPS:
         build_app(a)
+    for a in SOON:
+        build_soon(a)
     if not os.path.exists(f"{GEN}/.privacy_done"):
         build_privacy()
         open(f"{GEN}/.privacy_done", "w").write("1")
