@@ -11,7 +11,7 @@ OUT = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 GEN = os.path.dirname(__file__)
 LOOKUP = ({r["trackId"]: r for r in json.load(open(f"{SRC}/lookup.json"))["results"] if r.get("wrapperType") == "software"}
           if os.path.exists(f"{SRC}/lookup.json") else {})   # only the full build needs App Store data
-V = 5   # cache-buster for site.css / site.js
+V = 6   # cache-buster for site.css / site.js
 E = html.escape
 
 
@@ -239,6 +239,26 @@ def build_home():
       <div class="panel who" style="--c:#4A9EFF"><span class="ic">{ICON_TAP}</span><h3>The person speaking</h3><p>Tap tiles to speak and build full sentences. Photo, video and emoji tiles, and the ASL sign for any word.</p></div>
       <div class="panel who" style="--c:#3DD66B"><span class="ic">{ICON_PEOPLE}</span><h3>Families &amp; caregivers</h3><p>See what your person needs in real time, with urgent messages pinned to the top.</p></div>
       <div class="panel who" style="--c:#FF9F4A"><span class="ic">{ICON_CHART}</span><h3>Teachers &amp; SLPs</h3><p>Track vocabulary growth and export reports made for therapy sessions and IEP meetings.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="demo" aria-labelledby="dm">
+    <div class="demo">
+      <div class="demo-video">
+        <video src="/media/yappp-promo.mp4" poster="/media/yappp-promo.jpg" controls muted playsinline preload="metadata"
+               aria-label="60-second demo: making a Dad photo tile and a Thank You sign-language video tile in YAPPP"></video>
+      </div>
+      <div class="demo-copy">
+        <p class="eyebrow-dark">See it in 60 seconds</p>
+        <h2 id="dm">Make any word a tile.</h2>
+        <ol>
+          <li><b>New Tile.</b> Settings → Add Cards → New Tile.</li>
+          <li><b>Label and emoji.</b> Type the word, pick an emoji.</li>
+          <li><b>Your photo or video.</b> Add a real photo of Dad, or a video of someone signing in ASL.</li>
+          <li><b>Tap to speak.</b> It's on the board. Tap it and YAPPP says the word, and video tiles sign it too.</li>
+        </ol>
+        <a class="btn" href="{store_url(flag)}" target="_blank" rel="noopener" style="{theme(flag)}">Get YAPPP on the App Store</a>
+      </div>
     </div>
   </section>
 

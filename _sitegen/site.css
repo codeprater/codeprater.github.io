@@ -277,3 +277,17 @@ a{color:inherit}
   .hero-shots img{width:30%;border-width:4px;border-radius:20px}
   .hero-shots img:nth-child(2){width:40%;margin-bottom:24px}
 }
+
+/* Demo video section */
+.demo{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:48px;align-items:center}
+.demo-video video{width:100%;aspect-ratio:9/16;border-radius:28px;background:#1A1238;box-shadow:var(--shadow);display:block}
+.demo-copy h2{margin:6px 0 18px;font-size:clamp(30px,4vw,46px);letter-spacing:-.025em;color:var(--ink)}
+.demo-copy ol{margin:0 0 26px;padding-left:22px;color:#3a3f4a;font-size:18px}
+.demo-copy li{margin-bottom:10px}
+.demo-copy li b{color:var(--ink)}
+.demo-copy .btn{background:var(--accent);color:var(--onAccent)}
+.eyebrow-dark{margin:0;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#6D3FE0}
+@media (max-width:760px){
+  .demo{grid-template-columns:1fr;gap:28px}
+  .demo-video{max-width:340px;margin:0 auto;width:100%}
+}
