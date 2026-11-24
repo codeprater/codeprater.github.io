@@ -134,5 +134,6 @@ WATCH = [
 ]
 TV = [
     dict(slug="hawt-potato", live=True, note="The party game has an Apple TV app, so the whole room can play along."),
+    dict(slug="honey-badger", live=True, note="Honey Badger: The Last Hive, a cartoon action adventure you can play on the big screen."),
     dict(slug="prater", live=False, note="An Apple TV version is planned for the first release."),
 ]
