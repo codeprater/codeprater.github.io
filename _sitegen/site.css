@@ -242,3 +242,38 @@ a{color:inherit}
 .store.notify b{font-size:18px}
 @media (prefers-reduced-motion:reduce){.scard,.fcard,.tile,.btn{transition:none}}
 @media (max-width:860px){.ahero .bigicon.dup{display:none}}
+
+/* ---------- Focused home (YAPPP) ---------- */
+.band{background:radial-gradient(900px 500px at 50% 0%,#2B1E5C 0%,transparent 70%),linear-gradient(180deg,var(--deep) 0%,#0E1120 100%);
+  color:#fff;overflow:hidden;margin-bottom:28px}
+.hero.focus{padding-top:64px;padding-bottom:0}
+.hero.focus .eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 4px;padding:6px 14px 6px 6px;border-radius:999px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-size:14px;font-weight:700;letter-spacing:.02em;color:#fff;opacity:1}
+.hero.focus .eyebrow img{width:26px;height:26px;border-radius:7px}
+.hero.focus h2{max-width:15ch;color:#fff;margin-top:22px}
+.hero.focus p{max-width:46ch;color:rgba(255,255,255,.78);opacity:1}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.band .btn{background:var(--accent);color:var(--onAccent);box-shadow:0 12px 30px -10px var(--accent)}
+.band .btn svg{width:18px;height:18px;margin-top:-2px}
+.band .btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3);box-shadow:none}
+.band .btn.ghost:hover{background:rgba(255,255,255,.08)}
+.hero.focus .plats-line{margin:18px auto 0;font-size:14px;letter-spacing:.04em;color:rgba(255,255,255,.55)}
+.hero-shots{display:flex;justify-content:center;align-items:flex-end;gap:26px;margin-top:48px;margin-bottom:-90px}
+.hero-shots img{width:min(26%,250px);border-radius:30px;border:6px solid #2a2d3a;box-shadow:0 30px 60px -20px rgba(0,0,0,.7);opacity:.85}
+.hero-shots img:nth-child(2){width:min(31%,300px);opacity:1;border-color:#3a3d4c;margin-bottom:40px}
+.sec-head.center{justify-content:center;text-align:center}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.panel.who{position:relative;padding-top:24px}
+.panel.who .ic{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;margin-bottom:14px;
+  color:var(--c);background:color-mix(in srgb,var(--c) 16%,#fff)}
+.panel.who .ic svg{width:26px;height:26px}
+.cta-panel{text-align:center;background:var(--tint)}
+.cta-panel p{max-width:60ch;margin:0 auto 18px}
+.cta-panel .btn{background:var(--accent);color:var(--onAccent)}
+@media (max-width:760px){
+  .hero.focus{padding-top:40px}
+  .three{grid-template-columns:1fr}
+  .hero-shots{gap:12px;margin-bottom:-60px}
+  .hero-shots img{width:30%;border-width:4px;border-radius:20px}
+  .hero-shots img:nth-child(2){width:40%;margin-bottom:24px}
+}

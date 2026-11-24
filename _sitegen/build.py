@@ -6,12 +6,12 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, os.path.dirname(__file__))
 from apps import APPS, PLUGGEDIN, SOON, WATCH, TV
 
-SRC = "/home/claude/assets-in"
+SRC = os.environ.get("ASSETS_IN", "/home/claude/assets-in")
 OUT = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 GEN = os.path.dirname(__file__)
 LOOKUP = ({r["trackId"]: r for r in json.load(open(f"{SRC}/lookup.json"))["results"] if r.get("wrapperType") == "software"}
           if os.path.exists(f"{SRC}/lookup.json") else {})   # only the full build needs App Store data
-V = 4   # cache-buster for site.css / site.js
+V = 5   # cache-buster for site.css / site.js
 E = html.escape
 
 
@@ -112,7 +112,7 @@ def header(current=""):
   <div class="wrap bar">
     <a class="logo" href="/" aria-label="Prater Apps home">{LOGO}<span>Prater Apps</span></a>
     <nav aria-label="Site">
-      {nav("/apps/", "Apps", "apps")}{nav("/#platforms", "Watch &amp; TV", "platforms")}{nav("/#soon", "Coming soon", "soon")}{nav("/#about", "About", "about")}{nav("/#support", "Support", "support")}
+      {nav("/", "YAPPP", "home")}{nav("/#pilot", "Schools &amp; SLPs", "pilot")}{nav("/apps/", "All apps", "apps")}{nav("/#about", "About", "about")}
       <button class="icon-btn" id="searchBtn" aria-label="Search apps">{SEARCH_ICON}</button>
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">{MENU_ICON}</button>
     </nav>
@@ -192,46 +192,83 @@ def all_apps():
     return APPS + SOON + [PLUGGEDIN]
 
 
+FLAGSHIP = "yappp"
+ICON_TAP = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.2V5.5a1.75 1.75 0 0 1 3.5 0v4.6l4.3.9c1.3.3 2.2 1.5 2 2.8l-.7 5.1A2.5 2.5 0 0 1 15.6 21h-4.2c-.8 0-1.5-.4-2-1l-3.7-4.8a1.6 1.6 0 0 1 2.3-2.2L9 14.1z"/></svg>'
+ICON_PEOPLE = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="8" cy="8" r="3.2"/><circle cx="16.5" cy="7.5" r="3.6"/><path d="M1.5 19c0-3.3 2.9-5.5 6.5-5.5 1.3 0 2.5.3 3.5.8-1.4 1.1-2.3 2.7-2.3 4.7z"/><path d="M9.5 19.5c0-3.6 3.1-6 7-6s7 2.4 7 6z"/></svg>'
+ICON_CHART = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="11" width="5" height="9" rx="1.6"/><rect x="9.5" y="7.5" width="5" height="12.5" rx="1.6"/><rect x="16" y="4" width="5" height="16" rx="1.6"/></svg>'
+LANE = ["yappp", "aucommadate", "wis"]          # the communication lane, in order
+
+
+def lane_card(app):
+    lk = LOOKUP.get(app.get("id"), {})
+    price = lk.get("formattedPrice") or ""
+    return f"""<a class="tile" href="{app_url(app)}" style="{theme(app)}">
+  <img src="/assets/apps/{app['slug']}/icon.jpg" alt="" loading="lazy">
+  <div><b>{E(app['name'])}</b><span>{E(app['tagline'])}</span><div class="meta">{E(app['cat'])} · {E(price)}</div></div>
+</a>"""
+
+
 def build_home():
-    feats = sorted([a for a in APPS if a.get("featured")], key=lambda a: a["featured"])
-    cats = ["All"] + sorted({a["cat"] for a in all_apps()})
-    chips = "".join(f'<button class="chip" aria-pressed="{"true" if c == "All" else "false"}" data-filter="{E(c)}">{E(c)}</button>' for c in cats)
-    page = head("Prater Apps — Different apps for everyday life",
+    """One product, one audience: AAC and communication tools. The full catalog lives at /apps/."""
+    flag = by_slug(FLAGSHIP)
+    land = [s for s, l in flag["shots"] if l]
+    shots = (f'<img class="land" src="/assets/apps/{flag["slug"]}/{land[0]}" alt="YAPPP on iPad">' if land else
+             "".join(f'<img src="/assets/apps/{flag["slug"]}/{flag["shots"][i][0]}" alt="YAPPP screenshot" loading="lazy">'
+                     for i in (1, 0, 4) if i < len(flag["shots"])))   # caregivers · board · progress
+    lane = [by_slug(s) for s in LANE[1:]]
+    page = head("Prater Apps — AAC and communication apps for nonspeaking people",
                 HOME_DESC, "/")
     page += "<body>\n" + header() + f"""<main id="main">
-  <section class="hero wrap">
-    <h1 class="wordmark" aria-label="Prater Apps"><span class="depth" aria-hidden="true">Prater Apps</span><span class="face" aria-hidden="true">Prater Apps</span></h1>
-    <h2>Different apps for everyday life.</h2>
-    <p>{HERO_P}</p>
-    <a class="btn" href="#apps">Explore apps</a>
+  <section class="band" style="{theme(flag)}">
+   <div class="hero wrap focus">
+    <p class="eyebrow"><img src="/assets/apps/{flag['slug']}/icon.jpg" alt="">YAPPP · AAC app</p>
+    <h2>A voice for people who communicate differently.</h2>
+    <p>Tap a tile, and YAPPP speaks. Built for nonspeaking and minimally verbal people, and for the families, teachers and speech-language pathologists who support them.</p>
+    <div class="ctas">
+      <a class="btn" href="{store_url(flag)}" target="_blank" rel="noopener">{APPLE}Get YAPPP on the App Store</a>
+      <a class="btn ghost" href="#pilot">For schools &amp; SLPs</a>
+    </div>
+    <p class="plats-line">iPhone · iPad · Mac · Apple Watch · CarPlay</p>
+    <div class="hero-shots" aria-hidden="true">{shots}</div>
+   </div>
   </section>
 
-  <section class="sec wrap" aria-labelledby="feat">
-    <div class="sec-head"><h2 id="feat">Featured apps</h2><a href="/apps/">View all apps →</a></div>
-    <div class="featured">{''.join(featured_card(a) for a in feats)}</div>
+  <section class="sec wrap" aria-labelledby="who">
+    <div class="sec-head center"><h2 id="who">Built for everyone in the conversation</h2></div>
+    <div class="three">
+      <div class="panel who" style="--c:#4A9EFF"><span class="ic">{ICON_TAP}</span><h3>The person speaking</h3><p>Tap tiles to speak and build full sentences. Photo, video and emoji tiles, and the ASL sign for any word.</p></div>
+      <div class="panel who" style="--c:#3DD66B"><span class="ic">{ICON_PEOPLE}</span><h3>Families &amp; caregivers</h3><p>See what your person needs in real time, with urgent messages pinned to the top.</p></div>
+      <div class="panel who" style="--c:#FF9F4A"><span class="ic">{ICON_CHART}</span><h3>Teachers &amp; SLPs</h3><p>Track vocabulary growth and export reports made for therapy sessions and IEP meetings.</p></div>
+    </div>
   </section>
 
-  <section class="sec wrap" id="apps" aria-labelledby="all">
-    <div class="sec-head"><h2 id="all">All apps</h2><a href="https://apps.apple.com/us/developer/courtney-prater/id1673042208" target="_blank" rel="noopener">See them on the App Store ↗</a></div>
-    <div class="filters" role="group" aria-label="Filter apps">{chips}</div>
-    <div class="grid" id="grid">{''.join(tile(a) for a in all_apps())}</div>
+  <section class="sec wrap" id="pilot" aria-labelledby="pl">
+    <div class="panel cta-panel" style="{theme(flag)}">
+      <h3 id="pl">Bring YAPPP to your classroom or practice</h3>
+      <p>We're working with a small group of speech-language pathologists, special-education teachers and families. Tell us who you support and what you use today, and we'll set you up and listen to everything you say.</p>
+      <a class="btn" href="mailto:courtney@praterapps.com?subject=YAPPP%20pilot&body=I%20am%20a%20(SLP%20%2F%20teacher%20%2F%20parent)%20and%20I%20support%3A%20">Join the pilot</a>
+    </div>
   </section>
 
-  {extra_sections()}
+  <section class="sec wrap" aria-labelledby="more">
+    <div class="sec-head"><h2 id="more">More communication tools</h2></div>
+    <div class="grid">{''.join(lane_card(a) for a in lane)}</div>
+  </section>
+
   <section class="sec wrap" id="about" aria-labelledby="ab">
     <div class="about">
       <div class="panel">
         <h3 id="ab">About Prater Apps</h3>
-        <p>Prater Apps LLC is an independent studio in Eastpointe, Michigan, run by Courtney Prater. We build iPhone apps for real, everyday moments: tools that help people communicate, stay safe and get work done, and games that bring people together.</p>
-        <p>Many of our apps are made for people who are often left out of mainstream technology: nonspeaking and minimally verbal people, their families and caregivers, and neighbors in Detroit and beyond.</p>
+        <p>Prater Apps LLC is an independent studio in Eastpointe, Michigan, founded by Courtney Prater. Our focus is communication technology for nonspeaking and minimally verbal people and the people who support them.</p>
+        <p>Courtney has built and shipped {len(APPS)} apps to the App Store as a solo founder, across iPhone, iPad, Mac, Apple Watch, Apple TV and CarPlay. YAPPP is where that work comes together.</p>
+        <p><a href="/apps/">See every Prater Apps app →</a></p>
       </div>
       <div class="panel" id="support">
-        <h3>Support</h3>
-        <p>Questions about an app, a purchase or your data? We answer every message.</p>
+        <h3>Contact</h3>
         <ul>
-          <li>Email <a href="mailto:courtney@praterapps.com">courtney@praterapps.com</a></li>
-          <li>Read our <a href="/privacy.html">Privacy Policy</a></li>
-          <li>PluggedIn help: <a href="/pluggedin/support">PluggedIn Support</a></li>
+          <li>Support and schools: <a href="mailto:courtney@praterapps.com">courtney@praterapps.com</a></li>
+          <li>Investors and partners: <a href="mailto:courtney@praterapps.com?subject=Investing%20in%20Prater%20Apps">courtney@praterapps.com</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
         </ul>
       </div>
     </div>
@@ -375,9 +412,9 @@ def build_app(app):
 
 
 # ---------- coming soon, Apple Watch and Apple TV ----------
-HERO_P = "Independent apps for iPhone, iPad, Apple Watch and Apple TV by Courtney Prater."
-HOME_DESC = ("Independent apps by Courtney Prater for iPhone, iPad, Apple Watch and Apple TV: "
-             "communication, accessibility, games and tools for everyday life.")
+HERO_P = "AAC and communication apps for nonspeaking people, their families and the professionals who support them."
+HOME_DESC = ("YAPPP is an AAC app for iPhone, iPad, Mac and Apple Watch from Prater Apps: speech tiles, ASL support, "
+             "caregiver tools and SLP reports for nonspeaking and minimally verbal people.")
 WATCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="6" width="11" height="12" rx="3.2"/><path d="M9 6l.6-3h4.8L15 6M9 18l.6 3h4.8l.6-3M17.5 10.5h1.2"/></svg>'
 TV_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2.2"/><path d="M8 20.5h8"/></svg>'
 
@@ -632,7 +669,37 @@ def build_favicon():
     Image.open(f"{GEN}/favicon.png").save(f"{OUT}/assets/favicon.png") if os.path.exists(f"{GEN}/favicon.png") else None
 
 
+def build_home_only():
+    """Rebuilds the homepage and the header nav on every generated page from the assets already in
+    the repo (no App Store download needed). Set ASSETS_IN to a folder with lookup.json for prices/links."""
+    for app in APPS:
+        d = f"{OUT}/assets/apps/{app['slug']}"
+        app["shots"] = [(f, Image.open(f"{d}/{f}").width > Image.open(f"{d}/{f}").height)
+                        for f in sorted(os.listdir(d)) if f.startswith("shot")] if os.path.isdir(d) else []
+    shutil.copy(f"{GEN}/site.css", f"{OUT}/assets/site.css")
+    build_home()
+    nav_re = re.compile(r'(<nav aria-label="Site">\s*).*?(\s*<button class="icon-btn" id="searchBtn")', re.S)
+    links = re.search(r'<nav aria-label="Site">\s*(.*?)\s*<button', header(), re.S).group(1)
+    n = 0
+    for root, _, files in os.walk(OUT):
+        if "/pluggedin" in root or "/.git" in root or "/_sitegen" in root:
+            continue
+        for f in files:
+            if f.endswith(".html") and not (root == OUT and f == "index.html"):
+                fp = os.path.join(root, f)
+                s = open(fp).read()
+                t = nav_re.sub(lambda m: m.group(1) + links + m.group(2), s, count=1)
+                t = re.sub(r"(/assets/site\.(?:css|js))\?v=\d+", rf"\1?v={V}", t)
+                if t != s:
+                    open(fp, "w").write(t)
+                    n += 1
+    print("home rebuilt · pages touched:", n)
+
+
 if __name__ == "__main__":
+    if sys.argv[1:] == ["home"]:
+        build_home_only()
+        sys.exit()
     if sys.argv[1:] == ["soon"]:
         patch_soon()
         sys.exit()
