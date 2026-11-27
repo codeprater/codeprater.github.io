@@ -41,6 +41,9 @@ def prepare_assets():
     if os.path.isdir(dst):
         shutil.rmtree(dst)
     for app in APPS:
+        if app.get("icon_url"):        # images served from the App Store, nothing to copy
+            app["shots"] = [(u, False) for u in app.get("shot_urls", [])]
+            continue
         d = f"{dst}/{app['slug']}"
         os.makedirs(d, exist_ok=True)
         src = f"{SRC}/{app['id']}"
@@ -148,6 +151,10 @@ FOOTER = f"""<footer class="gf">
 """
 
 
+def icon_src(app):
+    return app.get("icon_url") or f"/assets/apps/{app['slug']}/icon.jpg"
+
+
 def store_button(url, big=True):
     return (f'<a class="store" href="{url}" target="_blank" rel="noopener">{APPLE}'
             f'<span><small>Download on the</small><b>App Store</b></span></a>')
@@ -170,7 +177,7 @@ def featured_card(app):
         imgs = "".join(f'<img src="/assets/apps/{app["slug"]}/{s}" alt="" loading="lazy">' for s, _ in shots)
     return f"""<a class="fcard" href="{app_url(app)}" style="{theme(app)}">
   <div class="txt">
-    <div class="ttl"><img src="/assets/apps/{app['slug']}/icon.jpg" alt=""><h3>{E(app['name'])}</h3></div>
+    <div class="ttl"><img src="{icon_src(app)}" alt=""><h3>{E(app['name'])}</h3></div>
     <p>{E(app['tagline'])}</p>
     <span class="go">Learn more ›</span>
   </div>
@@ -183,7 +190,7 @@ def tile(app):
     price = "Coming soon" if app.get("soon") else (lk.get("formattedPrice") or "")
     badge = '<span class="badge">Soon</span>' if app.get("soon") else ""
     return f"""<a class="tile" href="{app_url(app)}" style="{theme(app)}" data-cat="{E(app['cat'])}" data-name="{E((app['name'] + ' ' + app.get('full', '') + ' ' + app['tagline']).lower())}">
-  <img src="/assets/apps/{app['slug']}/icon.jpg" alt="" loading="lazy">
+  <img src="{icon_src(app)}" alt="" loading="lazy">
   <div><b>{E(app['name'])}{badge}</b><span>{E(app['tagline'])}</span><div class="meta">{E(app['cat'])} · {E(price)}</div></div>
 </a>"""
 
@@ -203,7 +210,7 @@ def lane_card(app):
     lk = LOOKUP.get(app.get("id"), {})
     price = lk.get("formattedPrice") or ""
     return f"""<a class="tile" href="{app_url(app)}" style="{theme(app)}">
-  <img src="/assets/apps/{app['slug']}/icon.jpg" alt="" loading="lazy">
+  <img src="{icon_src(app)}" alt="" loading="lazy">
   <div><b>{E(app['name'])}</b><span>{E(app['tagline'])}</span><div class="meta">{E(app['cat'])} · {E(price)}</div></div>
 </a>"""
 
@@ -377,7 +384,7 @@ def build_app(app):
     info_html = "".join(f"<dt>{E(k)}</dt><dd>{E(str(v))}</dd>" for k, v in info if v)
     title = f'{app["name"]} — Prater Apps'
     page = head(title, app["tagline"], f'/apps/{app["slug"]}/',
-                f'<meta property="og:image" content="https://praterapps.com/assets/apps/{app["slug"]}/icon.jpg">'
+                f'<meta property="og:image" content="{app.get("icon_url") or "https://praterapps.com/assets/apps/" + app["slug"] + "/icon.jpg"}">'
                 f'<meta name="apple-itunes-app" content="app-id={app["id"]}">')
     page = page.replace('<meta name="theme-color" content="#FBF3E6">', f'<meta name="theme-color" content="{app["deep"]}">')
     page += f'<body style="{theme(app)}">\n' + header() + f"""<div class="appnav">
@@ -425,7 +432,7 @@ def build_app(app):
 </main>
 """ + FOOTER
     base = f"/assets/apps/{app['slug']}/"
-    page = re.sub(r'src="((?:icon|shot\d)\.jpg)"', lambda m: f'src="{base}{m.group(1)}"', page)
+    page = re.sub(r'src="((?:icon|shot\d)\.jpg)"', lambda m: f'src="{app["icon_url"] if m.group(1) == "icon.jpg" and app.get("icon_url") else base + m.group(1)}"', page)
     d = f"{OUT}/apps/{app['slug']}"
     os.makedirs(d, exist_ok=True)
     open(f"{d}/index.html", "w").write(page)
@@ -679,7 +686,7 @@ def build_privacy():
 
 
 def build_js():
-    data = [dict(n=a["name"], t=a["tagline"], c=a["cat"], u=app_url(a), i=f'/assets/apps/{a["slug"]}/icon.jpg',
+    data = [dict(n=a["name"], t=a["tagline"], c=a["cat"], u=app_url(a), i=icon_src(a),
                  k=(a["name"] + " " + a.get("full", "") + " " + a["tagline"] + " " + a["cat"]).lower()) for a in all_apps()]
     js = open(f"{GEN}/site.js").read().replace("/*APPS*/[]", json.dumps(data, ensure_ascii=False))
     open(f"{OUT}/assets/site.js", "w").write(js)
@@ -693,6 +700,9 @@ def build_home_only():
     """Rebuilds the homepage and the header nav on every generated page from the assets already in
     the repo (no App Store download needed). Set ASSETS_IN to a folder with lookup.json for prices/links."""
     for app in APPS:
+        if app.get("icon_url"):
+            app["shots"] = [(u, False) for u in app.get("shot_urls", [])]
+            continue
         d = f"{OUT}/assets/apps/{app['slug']}"
         app["shots"] = [(f, Image.open(f"{d}/{f}").width > Image.open(f"{d}/{f}").height)
                         for f in sorted(os.listdir(d)) if f.startswith("shot")] if os.path.isdir(d) else []

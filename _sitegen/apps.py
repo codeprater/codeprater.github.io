@@ -37,6 +37,13 @@ APPS = [
          cat="Games", accent="#F2600C", deep="#2A0B02", tint="#FFE2D2"),
     dict(id=6825290820, slug="honey-badger", name="Honey Badger", full="HoneyBadger Game", tagline="Honey Badger: The Last Hive. A cartoon action adventure.",
          cat="Games", accent="#E0A82E", deep="#1A1A1A", tint="#F8EDD3"),
+    # No local image files yet: icon and screenshots load from the App Store until copies are added to assets/apps/gormee/.
+    dict(id=6758402171, slug="gormee", name="GORMEE", tagline="Scan, save and check receipts, labels and warranty terms.",
+         cat="Productivity", accent="#1FA8E0", deep="#06283D", tint="#DCF2FB",
+         icon_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7c/cc/d1/7cccd14c-9f1e-c337-d316-310c2390a028/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+         shot_urls=["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/24/15/c2/2415c24e-0265-0c76-7622-0c69ffc571c7/GORMEE-iPhone-01-Scan-1206x2622.png/600x1304bb.jpg",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7d/06/ac/7d06acef-f737-9e6c-6d7a-6708c60a2ac3/GORMEE-iPhone-02-Tools-1206x2622.png/600x1304bb.jpg",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/74/aa/7b/74aa7b19-211a-a1a2-e99b-a5121e93c10d/GORMEE-iPhone-03-Receipt-Import-1206x2622.png/600x1304bb.jpg"]),
 ]
 
 PLUGGEDIN = dict(slug="pluggedin", name="PluggedIn", tagline="Hire local help or earn on your schedule. Every job verified.",
@@ -107,20 +114,6 @@ SOON = [
                  "Kids play the heroes. Parents and loved ones play the villains.",
              ]),
              ("Status", "HEROLES is in development, starting on iPhone."),
-         ]),
-    dict(slug="gormee", name="GORMEE", tagline="Know what's in your drink.",
-         cat="Lifestyle", accent="#1FA8E0", deep="#06283D", tint="#DCF2FB", soon=True, platforms=["iPhone"],
-         about=[
-             ("", "GORMEE started as a water quality log and hydration tracker. Next, it reads any drink: scan the bottle and get a one-sentence answer about what's inside."),
-             ("What we're building", [
-                 "Record water test results, attach photos and export your logs",
-                 "Hydration tracking",
-                 "Scan a bottle's ingredients and codes, right on your iPhone",
-                 "One-sentence results two ways: straight, or as a roast",
-                 "A full ingredient report for every scan",
-                 "A monthly report of what you've been drinking",
-             ]),
-             ("Status", "GORMEE is in development for iPhone."),
          ]),
 ]
 
