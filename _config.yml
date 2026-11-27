@@ -1,0 +1,4 @@
+# GitHub Pages skips folders that start with a dot unless they are listed here.
+# iOS reads .well-known/apple-app-site-association to open praterapps.com/ahem links in Ahem.
+include:
+  - .well-known

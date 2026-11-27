@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["N73XW3H4MX.CPrater.ahem"],
+        "components": [
+          { "/": "/ahem/a/*", "comment": "An AHEM someone sent" }
+        ]
+      }
+    ]
+  }
+}
